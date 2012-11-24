@@ -1,36 +1,36 @@
 " Vundle Setting
-set nocompatible
-filetype off
+if has('vim_starting')
+	set runtimepath+=~/.vim/neobundle.vim.git
+	call neobundle#rc(expand('~/.vim/bundle'))
+endif
 
-set rtp+=~/.vim/vundle/
-call vundle#rc()
+NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'matchit.zip'
+NeoBundle 'surround.vim'
+NeoBundle 'fugitive.vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'vcscommand.vim'
+NeoBundle 'css3-syntax-plus'
+NeoBundle 'jQuery'
+NeoBundle 'HTML5-Syntax-File'
+NeoBundle 'Markdown-syntax'
+NeoBundle 'quickrun'
+NeoBundle 'instant-markdown.vim'
+NeoBundle 'tComment'
+NeoBundle 'jellybeans.vim'
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'Shougo/neocomplcache-snippets_complete'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Gundo'
+NeoBundle 'jshint.vim'
+NeoBundle 'yuratomo/w3m.vim'
+NeoBundle 'tagexplorer.vim'
+NeoBundle 'vim-coffee-script'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'Shougo/unite.vim'
 
-Bundle 'gmarik/vundle'
-Bundle 'mattn/zencoding-vim'
-Bundle 'matchit.zip'
-Bundle 'surround.vim'
-Bundle 'fugitive.vim'
-Bundle 'Shougo/neocomplcache'
-Bundle 'vcscommand.vim'
-Bundle 'css3-syntax-plus'
-Bundle 'jQuery'
-Bundle 'HTML5-Syntax-File'
-Bundle 'Markdown-syntax'
-Bundle 'quickrun'
-Bundle 'instant-markdown.vim'
-Bundle 'tComment'
-Bundle 'jellybeans.vim'
-Bundle 'Lokaltog/vim-powerline'
-" Bundle 'Shougo/neocomplcache-snippets_complete'
-Bundle 'Shougo/vimshell'
-Bundle 'Gundo'
-Bundle 'fakeclip'
-Bundle 'jshint.vim'
-Bundle 'yuratomo/w3m.vim'
-Bundle 'tagexplorer.vim'
-Bundle 'vim-coffee-script'
-Bundle 'scrooloose/syntastic'
-Bundle 'unite.vim'
+filetype plugin on
+filetype indent on
 
 " 入力モードで開始する
 let g:unite_enable_start_insert=0
@@ -308,10 +308,7 @@ let g:Powerline_colorscheme='my'
 filetype plugin on
 au BufEnter * execute ":lcd " . expand("%:p:h")
 
-" jshint
-let g:syntastic_mode_map = {
-	\  'mode': 'active',
-	\ 'active_filetypes': ['ruby', 'javascript'],
-	\ 'passive_filetypes': []
-\ }
+" syntastic
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
 nnoremap ,sc :<C-u>SyntasticCheck<CR>
