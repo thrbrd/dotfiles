@@ -9,6 +9,7 @@ NeoBundle 'matchit.zip'
 NeoBundle 'surround.vim'
 NeoBundle 'fugitive.vim'
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'git://github.com/honza/snipmate-snippets.git'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'css3-syntax-plus'
 NeoBundle 'jQuery'
@@ -19,7 +20,7 @@ NeoBundle 'instant-markdown.vim'
 NeoBundle 'tComment'
 NeoBundle 'jellybeans.vim'
 NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'Shougo/neocomplcache-snippets_complete'
+NeoBundle 'git://github.com/Shougo/neosnippet.git'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Gundo'
 NeoBundle 'jshint.vim'
@@ -96,7 +97,6 @@ nmap <C-k> <C-w>k
 nmap <C-m> :nohl <return>
 nmap <C-v> :vertical diffsplit 
 nmap <C-o> :o .<return>
-nmap <Space>nes :NeoComplCacheEditSnippets <return>
 nmap <Leader>w :W3m 
 nmap <Leader>te :TagExplore <return>
 
@@ -312,3 +312,18 @@ au BufEnter * execute ":lcd " . expand("%:p:h")
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=2
 nnoremap ,sc :<C-u>SyntasticCheck<CR>
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable() ?
+"\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ?
+"\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
