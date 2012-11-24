@@ -2,6 +2,16 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# git alias
+alias gpl='git pull'
+alias gps='git push'
+alias gaA='git add -A'
+alias ga='git add'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gl='git log'
+alias gs='git status'
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -106,4 +116,4 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-zsh
+tmux -2

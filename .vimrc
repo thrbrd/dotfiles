@@ -21,15 +21,27 @@ Bundle 'instant-markdown.vim'
 Bundle 'tComment'
 Bundle 'jellybeans.vim'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'Shougo/neocomplcache-snippets_complete'
+" Bundle 'Shougo/neocomplcache-snippets_complete'
 Bundle 'Shougo/vimshell'
 Bundle 'Gundo'
-Bundle 'CD.vim'
 Bundle 'fakeclip'
 Bundle 'jshint.vim'
 Bundle 'yuratomo/w3m.vim'
 Bundle 'tagexplorer.vim'
 Bundle 'vim-coffee-script'
+Bundle 'scrooloose/syntastic'
+Bundle 'unite.vim'
+
+" 入力モードで開始する
+let g:unite_enable_start_insert=0
+" バッファ一覧
+noremap <C-F><C-B> :Unite buffer<CR>
+" ファイル一覧
+noremap <C-F><C-F> :UniteWithBufferDir -buffer-name=files file<CR>
+" 最近使ったファイルの一覧
+noremap <C-F><C-H> :Unite file_mru<CR>
+" ファイルとバッファ
+noremap <C-F><C-U> :Unite buffer file_mru<CR>
 
 " Powerline
 let g:Powerline_symbols = 'fancy'
@@ -43,6 +55,7 @@ set list
 set listchars=eol:¬,tab:▸\ ,extends:>,precedes:<,trail:-
 
 " settings
+syntax on
 set guioptions=m
 " set linespace=4
 set clipboard=unnamed
@@ -79,12 +92,7 @@ nmap <C-n> :tabnext <return>
 nmap <C-p> :tabprevious <return>
 nmap <C-l> <C-w>l
 nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
-nmap <S-h> ^
-nmap <S-l> $
-nmap <S-k> gg
-nmap <S-j> <S-g>
 nmap <C-m> :nohl <return>
 nmap <C-v> :vertical diffsplit 
 nmap <C-o> :o .<return>
@@ -98,10 +106,6 @@ imap <C-l> <Esc>$a
 imap <C-w> <Esc>
 
 " keybind: visual mode
-vmap <S-h> ^
-vmap <S-l> $
-vmap <S-k> gg
-vmap <S-j> <S-g>
 vmap <C-7> s'
 vmap <C-2> s"
 vmap <C-t> st
@@ -115,9 +119,6 @@ imap <C-e> <C-y>,
 " fugitive(git plugin) keybind
 nmap <Leader>ga :Gwrite <return>
 nmap <Leader>gc :Gcommit <return>
-
-" markdown keybind
-nmap <leader>md :%!/home/m-koeda/Markdown.pl --html4tags <return>  
 
 " gundo keybind
 nmap <C-b> :GundoToggle <return>
@@ -305,3 +306,12 @@ let g:Powerline#Colorschemes#my#colorscheme = Pl#Colorscheme#Init([
 let g:Powerline_colorscheme='my'
 
 filetype plugin on
+au BufEnter * execute ":lcd " . expand("%:p:h")
+
+" jshint
+let g:syntastic_mode_map = {
+	\  'mode': 'active',
+	\ 'active_filetypes': ['ruby', 'javascript'],
+	\ 'passive_filetypes': []
+\ }
+nnoremap ,sc :<C-u>SyntasticCheck<CR>

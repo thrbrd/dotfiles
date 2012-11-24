@@ -1,16 +1,29 @@
 #=============================
 # source auto-fu.zsh
 #=============================
-if [ -f ~/.zsh/auto-fu.zsh ]; then
 source ~/.zsh/auto-fu.zsh
     function zle-line-init () {
         auto-fu-init
     }
     zle -N zle-line-init
     zstyle ':completion:*' completer _oldlist _complete
-fi
 
 # -*- sh -*-
+
+# git alias
+alias gpl='git pull'
+alias gps='git push'
+alias gaA='git add -A'
+alias ga='git add'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gl='git log'
+alias gs='git status'
+alias gco='git checkout'
+alias gmg='git merge'
+alias rmds='find ./ -name ".DS_Store" -print -exec rm {} ";"'
+
+export SVN_EDITOR='vi'
 
 # キーバインド
 ## Emacsキーバインドを使う。
