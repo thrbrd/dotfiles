@@ -117,3 +117,5 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 tmux -2
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

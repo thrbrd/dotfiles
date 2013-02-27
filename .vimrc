@@ -29,6 +29,7 @@ NeoBundle 'tagexplorer.vim'
 NeoBundle 'vim-coffee-script'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'vim-scripts/Simple-Javascript-Indenter'
 
 filetype plugin on
 filetype indent on
@@ -59,6 +60,7 @@ set listchars=eol:¬,tab:▸\ ,extends:>,precedes:<,trail:-
 syntax on
 set guioptions=m
 " set linespace=4
+set visualbell t_vb=
 set clipboard=unnamed
 set virtualedit=block
 set nobackup
@@ -317,13 +319,12 @@ nnoremap ,sc :<C-u>SyntasticCheck<CR>
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 "
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable() ?
-"\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ?
-"\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
+" この設定入れるとshiftwidthを1にしてインデントしてくれる
+let g:SimpleJsIndenter_BriefMode = 1
+" この設定入れるとswitchのインデントがいくらかマシに
+let g:SimpleJsIndenter_CaseIndentLevel = -1

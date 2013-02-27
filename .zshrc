@@ -425,3 +425,10 @@ update_title() {
 if [ -n "$DISPLAY" ]; then
     preexec_functions=($preexec_functions update_title)
 fi
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+. `brew --prefix`/etc/profile.d/z.sh
+function precmd () {
+	_z --add "$(pwd -P)"
+}
