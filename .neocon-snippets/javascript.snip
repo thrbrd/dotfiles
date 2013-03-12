@@ -1,0 +1,31 @@
+snippet nonamefunction
+alias nn
+    function () {
+        ${1}
+    };
+
+snippet settimeout
+alias sto
+    setTimeout(function () {
+        ${2}
+    }, ${1});
+
+snippet setinterval
+alias siv
+    setInterval(function () {
+        ${2}
+    }, ${1});
+
+snippet alerttest
+alias alt
+    alert(${1:'test'});${2}
+
+snippet consoletest
+alias cot
+    console.log(${1:'test'});${2}
+
+snippet docready
+alias jq
+    $(function () {
+        ${1}
+    });

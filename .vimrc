@@ -1,3 +1,6 @@
+filetype plugin on
+filetype indent on
+
 " Vundle Setting
 if has('vim_starting')
 	set runtimepath+=~/.vim/neobundle.vim.git
@@ -30,9 +33,8 @@ NeoBundle 'vim-coffee-script'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'vim-scripts/Simple-Javascript-Indenter'
-
-filetype plugin on
-filetype indent on
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'digitaltoad/vim-jade'
 
 " 入力モードで開始する
 let g:unite_enable_start_insert=0
@@ -132,6 +134,7 @@ nmap <C-b> :GundoToggle <return>
 
 " Shougo/neocomplcache Setting
 let g:neocomplcache_enable_at_startup = 1
+
 function InsertTabWrapper()
     if pumvisible()
         return "\<c-n>"
@@ -145,6 +148,11 @@ function InsertTabWrapper()
         return "\<c-x>\<c-o>"
     endif
 endfunction
+
+let g:neocomplcache_snippets_dir = '~/dotfiles/.neocon-snippets'
+
+" スニペットファイルを編集する
+noremap nes :<C-u>NeoComplCacheEditSnippets<CR>
 
 " neocomplcache snipet trigger
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
@@ -311,9 +319,23 @@ filetype plugin on
 au BufEnter * execute ":lcd " . expand("%:p:h")
 
 " syntastic
+let g:syntastic_check_on_open=0 "ファイルを開いたときはチェックしない
+let g:syntastic_check_on_save=1 "保存時にはチェック
+let g:syntastic_auto_loc_list=1 "エラーがあったら自動でロケーションリストを開く
+let g:syntastic_loc_list_height=6 "エラー表示ウィンドウの高さ
+set statusline+=%#warningmsg# "エラーメッセージの書式
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_javascript_checker = 'jshint' "jshintを使う
+let g:syntastic_mode_map = {
+      \ 'mode': 'active',
+      \ 'active_filetypes': ['ruby', 'javascript'],
+      \ 'passive_filetypes': []
+      \ }
+"エラー表示マークを変更
 let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
-nnoremap ,sc :<C-u>SyntasticCheck<CR>
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -328,3 +350,6 @@ endif
 let g:SimpleJsIndenter_BriefMode = 1
 " この設定入れるとswitchのインデントがいくらかマシに
 let g:SimpleJsIndenter_CaseIndentLevel = -1
+
+let g:ref_alc_encoding = 'utf-8'
+let g:ref_alc_start_linenumber = 44

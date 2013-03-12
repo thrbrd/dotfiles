@@ -13,9 +13,10 @@ source ~/.zsh/auto-fu.zsh
 # git alias
 alias gpl='git pull'
 alias gps='git push'
-alias gaA='git add -A'
-alias ga='git add'
-alias gc='git commit'
+# alias gaA='git add -A'
+alias ga='git add -A'
+# alias ga='git add'
+alias gc='git add -A;git commit;'
 alias gcm='git commit -m'
 alias gl='git log'
 alias gs='git status'
