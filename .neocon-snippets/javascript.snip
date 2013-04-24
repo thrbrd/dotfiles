@@ -2,7 +2,7 @@ snippet nonamefunction
 alias nn
     function () {
         ${1}
-    };
+    }
 
 snippet settimeout
 alias sto
@@ -29,3 +29,21 @@ alias jq
     $(function () {
         ${1}
     });
+
+snippet prototype
+alias pt
+    NAMESPACE.Name = function () {
+        this.init();
+    };
+    NAMESPACE.Name.prototype = {
+        init: function () {
+        }
+    };
+
+snippet jqueryplugin
+alias jqp
+    $.fn.name = function () {
+        return this.each(function () {
+            var name = new Name($(this));
+        });
+    };

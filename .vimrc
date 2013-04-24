@@ -18,10 +18,11 @@ NeoBundle 'css3-syntax-plus'
 NeoBundle 'jQuery'
 NeoBundle 'HTML5-Syntax-File'
 NeoBundle 'Markdown-syntax'
-NeoBundle 'quickrun'
+NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'instant-markdown.vim'
 NeoBundle 'tComment'
 NeoBundle 'jellybeans.vim'
+NeoBundle 'tomasr/molokai'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'git://github.com/Shougo/neosnippet.git'
 NeoBundle 'Shougo/vimshell'
@@ -31,36 +32,47 @@ NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'tagexplorer.vim'
 NeoBundle 'vim-coffee-script'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'vim-scripts/Simple-Javascript-Indenter'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'digitaltoad/vim-jade'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
+NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'aohta/blockdiag.vim'
 
-" 入力モードで開始する
-let g:unite_enable_start_insert=0
-" バッファ一覧
-noremap <C-F><C-B> :Unite buffer<CR>
-" ファイル一覧
-noremap <C-F><C-F> :UniteWithBufferDir -buffer-name=files file<CR>
-" 最近使ったファイルの一覧
-noremap <C-F><C-H> :Unite file_mru<CR>
-" ファイルとバッファ
-noremap <C-F><C-U> :Unite buffer file_mru<CR>
+" " バッファ一覧
+" noremap <C-F><C-B> :Unite buffer<CR>
+" " ファイル一覧
+" noremap <C-F><C-F> :UniteWithBufferDir -buffer-name=files file<CR>
+" " 最近使ったファイルの一覧
+" noremap <C-F><C-H> :Unite file_mru<CR>
+" " ファイルとバッファ
+" noremap <C-F><C-U> :Unite buffer file_mru<CR>
 
 " Powerline
 let g:Powerline_symbols = 'fancy'
 set t_Co=256
 
-" color theme
+" Color scheme
 colorscheme jellybeans
+" colorscheme molokai
 
-"タブとか改行を表示する
+" タブとか改行を表示する
 set list
 set listchars=eol:¬,tab:▸\ ,extends:>,precedes:<,trail:-
 
 " settings
 syntax on
 set guioptions=m
+
 " set linespace=4
 set visualbell t_vb=
 set clipboard=unnamed
@@ -87,10 +99,14 @@ set mouse=a
 set cmdheight=2
 set novisualbell
 set foldmethod=marker
+set encoding=utf-8
+set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 
 " keybind: normal mode
 nmap j gj
 nmap k gk
+nmap > >>
+nmap < <<
 nmap <C-t> :tabedit <return>
 nmap <C-c> :tabclose <return>
 nmap <C-n> :tabnext <return>
@@ -100,25 +116,13 @@ nmap <C-h> <C-w>h
 nmap <C-k> <C-w>k
 nmap <C-m> :nohl <return>
 nmap <C-v> :vertical diffsplit 
-nmap <C-o> :o .<return>
-nmap <Leader>w :W3m 
-nmap <Leader>te :TagExplore <return>
-
-" keybind: insert mode
-imap <C-h> <Esc>^i
-imap <C-l> <Esc>$a
-imap <C-w> <Esc>
-
-" keybind: visual mode
-vmap <C-7> s'
-vmap <C-2> s"
-vmap <C-t> st
-vmap <silent> > >gv
-vmap <silent> < <gv
+nmap <C-o> :VimFiler -split -simple -winwidth=35 -no-quit <return>
+vmap s S
 
 " keybind: zencoding
 nmap <C-e> <C-y>,
 imap <C-e> <C-y>,
+vmap <C-e> <C-y>,
 
 " fugitive(git plugin) keybind
 nmap <Leader>ga :Gwrite <return>
@@ -148,20 +152,14 @@ function InsertTabWrapper()
         return "\<c-x>\<c-o>"
     endif
 endfunction
-
 let g:neocomplcache_snippets_dir = '~/dotfiles/.neocon-snippets'
-
-" スニペットファイルを編集する
-noremap nes :<C-u>NeoComplCacheEditSnippets<CR>
 
 " neocomplcache snipet trigger
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
 
-filetype on
-
-set encoding=utf-8
-set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
+" Edit snippet files.
+nmap nes :<C-u>NeoComplCacheEditSnippets<CR>
 
 " powerline colorscheme
 call Pl#Hi#Allocate({
@@ -319,7 +317,7 @@ filetype plugin on
 au BufEnter * execute ":lcd " . expand("%:p:h")
 
 " syntastic
-let g:syntastic_check_on_open=0 "ファイルを開いたときはチェックしない
+let g:syntastic_check_on_open=1 "ファイルを開いたにチェックする
 let g:syntastic_check_on_save=1 "保存時にはチェック
 let g:syntastic_auto_loc_list=1 "エラーがあったら自動でロケーションリストを開く
 let g:syntastic_loc_list_height=6 "エラー表示ウィンドウの高さ

@@ -433,3 +433,5 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 function precmd () {
 	_z --add "$(pwd -P)"
 }
+
+alias la="ls -la"
