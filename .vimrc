@@ -118,6 +118,8 @@ nmap <C-m> :nohl <return>
 nmap <C-v> :vertical diffsplit 
 nmap <C-o> :VimFiler -split -simple -winwidth=35 -no-quit <return>
 vmap s S
+vmap <silent> > >gv
+vmap <silent> < <gv
 
 " keybind: zencoding
 nmap <C-e> <C-y>,
@@ -159,7 +161,7 @@ imap <C-k> <Plug>(neocomplcache_snippets_expand)
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
 
 " Edit snippet files.
-nmap nes :<C-u>NeoComplCacheEditSnippets<CR>
+nmap <Space>nes :<C-u>NeoComplCacheEditSnippets<CR>
 
 " powerline colorscheme
 call Pl#Hi#Allocate({

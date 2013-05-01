@@ -10,6 +10,9 @@ source ~/.zsh/auto-fu.zsh
 
 # -*- sh -*-
 
+# syntax highlight
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # git alias
 alias gpl='git pull'
 alias gps='git push'
@@ -23,6 +26,9 @@ alias gs='git status'
 alias gco='git checkout'
 alias gmg='git merge'
 alias rmds='find ./ -name ".DS_Store" -print -exec rm {} ";"'
+
+# alias
+alias nf='nodefront serve -cl'
 
 export SVN_EDITOR='vi'
 
