@@ -37,6 +37,8 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'epmatsw/ag.vim'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -353,3 +355,14 @@ let g:SimpleJsIndenter_CaseIndentLevel = -1
 
 let g:ref_alc_encoding = 'utf-8'
 let g:ref_alc_start_linenumber = 44
+
+" for easymotion
+" ホームポジションに近いキーを使う
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+" " 「'」 + 何かにマッピング
+let g:EasyMotion_leader_key=";"
+" " 1 ストローク選択を優先する
+let g:EasyMotion_grouping=1
+" " カラー設定変更
+hi EasyMotionTarget ctermbg=none ctermfg=red
+hi EasyMotionShade  ctermbg=none ctermfg=blue
