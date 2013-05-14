@@ -13,13 +13,11 @@ NeoBundle 'surround.vim'
 NeoBundle 'fugitive.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'git://github.com/honza/snipmate-snippets.git'
-NeoBundle 'vcscommand.vim'
 NeoBundle 'css3-syntax-plus'
 NeoBundle 'jQuery'
 NeoBundle 'HTML5-Syntax-File'
 NeoBundle 'Markdown-syntax'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'instant-markdown.vim'
 NeoBundle 'tComment'
 NeoBundle 'jellybeans.vim'
 NeoBundle 'tomasr/molokai'
@@ -28,9 +26,6 @@ NeoBundle 'git://github.com/Shougo/neosnippet.git'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Gundo'
 NeoBundle 'jshint.vim'
-NeoBundle 'yuratomo/w3m.vim'
-NeoBundle 'tagexplorer.vim'
-NeoBundle 'vim-coffee-script'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/Simple-Javascript-Indenter'
 NeoBundle 'thinca/vim-ref'
@@ -49,15 +44,6 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'aohta/blockdiag.vim'
-
-" " バッファ一覧
-" noremap <C-F><C-B> :Unite buffer<CR>
-" " ファイル一覧
-" noremap <C-F><C-F> :UniteWithBufferDir -buffer-name=files file<CR>
-" " 最近使ったファイルの一覧
-" noremap <C-F><C-H> :Unite file_mru<CR>
-" " ファイルとバッファ
-" noremap <C-F><C-U> :Unite buffer file_mru<CR>
 
 " Powerline
 let g:Powerline_symbols = 'fancy'
@@ -95,8 +81,7 @@ set whichwrap=b,s,h,l,<,>,[,]
 set wildmenu
 set ruler
 set laststatus=2
-set visualbell
-set t_vb=
+set visualbell t_vb=
 set mouse=a
 set cmdheight=2
 set novisualbell
@@ -118,7 +103,7 @@ nmap <C-h> <C-w>h
 nmap <C-k> <C-w>k
 nmap <C-m> :nohl <return>
 nmap <C-v> :vertical diffsplit 
-nmap <C-o> :VimFiler -split -simple -winwidth=35 -no-quit <return>
+nmap <C-o> :VimFiler <return>
 vmap s S
 vmap <silent> > >gv
 vmap <silent> < <gv
@@ -134,11 +119,6 @@ nmap <Leader>gc :Gcommit <return>
 
 " gundo keybind
 nmap <C-b> :GundoToggle <return>
-
-" unite.vim setting
-"nmap <Leader>cd :Unite file -buffer-name=files <return>
-"nmap <Leader>fh :Unite file_mru <return>
-"nmap <Leader>ch :UniteWithCurrentDir file_mru <return>
 
 " Shougo/neocomplcache Setting
 let g:neocomplcache_enable_at_startup = 1
@@ -366,3 +346,15 @@ let g:EasyMotion_grouping=1
 " " カラー設定変更
 hi EasyMotionTarget ctermbg=none ctermfg=red
 hi EasyMotionShade  ctermbg=none ctermfg=blue
+
+" for Dash.app
+function! s:dash(...)
+	let ft = &filetype
+	if &filetype == 'python'
+		let ft = ft.'2'
+	endif
+	let ft = ft.':'
+	let word = len(a:000) == 0 ? input('Dash search: ', ft.expand('<cword>')) : ft.join(a:000, ' ')
+	call system(printf("open dash://'%s'", word))
+endfunction
+command! -nargs=* Dash call <SID>dash(<f-args>)
