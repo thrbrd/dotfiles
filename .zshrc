@@ -29,6 +29,7 @@ alias rmds='find ./ -name ".DS_Store" -print -exec rm {} ";"'
 
 # alias
 alias nf='nodefront serve -cl'
+alias pngo='optipng'
 
 export SVN_EDITOR='vi'
 
@@ -441,3 +442,5 @@ function precmd () {
 }
 
 alias la="ls -la"
+
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
