@@ -17,11 +17,11 @@ alias siv
 
 snippet alerttest
 alias alt
-    alert(${1:'test'});${2}
+    alert(${1:'test'});
 
 snippet consoletest
 alias cot
-    console.log(${1:'test'});${2}
+    console.log(${1:'test'});
 
 snippet docready
 alias jq
@@ -31,13 +31,37 @@ alias jq
 
 snippet prototype
 alias pt
-    NAMESPACE.Name = function () {
+	${1:NS}.${2:Fn} = function () {
         this.init();
     };
-    NAMESPACE.Name.prototype = {
+    ${3:NS}.${4:Fn}.prototype = {
         init: function () {
-        }
+			this.bindEvent();
+		},
+		bindEvent: function () {
+			var _self = this;
+		}
     };
+
+snippet jquerypluginandwrapper
+alias jqpw
+	(function ($) {
+		NS.Fn = function () {
+			this.init();
+		};
+		NS.Fn.prototype = {
+			init: function () {
+				this.bindEvent();
+			},
+			bindEvent: function () {
+			}
+		};
+		$.fn.name = function () {
+			return this.each(function () {
+				var name = new Name($(this));
+			});
+		};
+	})(jQuery);
 
 snippet jqueryplugin
 alias jqp
@@ -46,3 +70,37 @@ alias jqp
             var name = new Name($(this));
         });
     };
+
+snippet jqueryselector
+alias jqs
+	$('${1:queryString}')${2}
+
+snippet proxy
+alias pr
+	$.proxy(function () {
+		${1}
+	}, this)
+
+snippet settimeoutproxy 
+alias sttp
+	setTimeout($.proxy(function () {
+		${2}
+	}, this), ${1:0})
+
+snippet onclick
+alias onc
+	${1}.on('click', function () {
+		${2}
+	});
+
+snippet event
+alias ev
+	${1}.on('${2}', function () {
+		${3}
+	});
+
+snippet eventproxy
+alias evp
+	${1}.on('${2}', $.proxy(function () {
+		${3}
+	}, this));

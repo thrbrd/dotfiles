@@ -26,10 +26,12 @@ alias gs='git status'
 alias gco='git checkout'
 alias gmg='git merge'
 alias rmds='find ./ -name ".DS_Store" -print -exec rm {} ";"'
+alias L='| less'
 
 # alias
 alias nf='nodefront serve -cl'
 alias pngo='optipng'
+alias chrome='open -a Google\ Chrome'
 
 export SVN_EDITOR='vi'
 
@@ -109,9 +111,9 @@ bg256()
 ## バージョン管理システムの情報も表示する
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats \
-    '(%{%F{white}%K{green}%}%s%{%f%k%})-[%{%F{white}%K{blue}%}%b%{%f%k%}]'
+    '[%{%F{green}%}%s%{%f%}:%{%F{blue}%}%b%{%f%}]'
 zstyle ':vcs_info:*' actionformats \
-    '(%{%F{white}%K{green}%}%s%{%f%k%})-[%{%F{white}%K{blue}%}%b%{%f%k%}|%{%F{white}%K{red}%}%a%{%f%k%}]'
+    '[%{%F{green}%}%s%{%f%}:%{%F{blue}%}%b%{%f%}|%{%F{red}%}%a%{%f%}]'
 
 ### プロンプトバーの左側
 ###   %{%B%}...%{%b%}: 「...」を太字にする。
@@ -134,8 +136,7 @@ zstyle ':vcs_info:*' actionformats \
 ###   %{%b%}: 太字を元に戻す。
 ###   %D{%Y/%m/%d %H:%M}: 日付。「年/月/日 時:分」というフォーマット。
 prompt_bar_left_self="(%{%B%}%n%{%b%}%{%F{cyan}%}@%{%f%}%{%B%}%m%{%b%})"
-prompt_bar_left_status="(%{%B%F{white}%(?.%K{green}.%K{red})%}%?%{%k%f%b%})"
-prompt_bar_left_date="<%{%B%}%D{%Y/%m/%d %H:%M}%{%b%}>"
+#prompt_bar_left_date="<%{%B%}%D{%Y/%m/%d %H:%M}%{%b%}>"
 prompt_bar_left="-${prompt_bar_left_self}-${prompt_bar_left_status}-${prompt_bar_left_date}-"
 ### プロンプトバーの右側
 ###   %{%B%K{magenta}%F{white}%}...%{%f%k%b%}:
@@ -213,18 +214,19 @@ update_prompt()
     #   "${bar_left}${bar_right}": プロンプトバー
     #   $'\n': 改行
     #   "${prompt_left}": 2行目左のプロンプト
-    PROMPT="${bar_left}${bar_right}"$'\n'"${prompt_left}"
+    PROMPT="[%F{cyan}%~%f]"$'\n'"${prompt_left}"
+    #PROMPT="${prompt_left}"
     # 右プロンプト
     #   %{%B%F{white}%K{green}}...%{%k%f%b%}:
     #       「...」を太字で緑背景の白文字にする。
     #   %~: カレントディレクトリのフルパス（可能なら「~」で省略する）
-    RPROMPT="[%{%B%F{white}%K{magenta}%}%~%{%k%f%b%}]"
+    #RPROMPT="[%{%B%F{white}%K{magenta}%}%~%{%k%f%b%}]"
     case "$TERM_PROGRAM" in
 	Apple_Terminal)
 	    # Mac OS Xのターミナルでは$COLUMNSに右余白が含まれていないので
 	    # 右プロンプトに「-」を追加して調整。
 	    ## 2011-09-05
-	    RPROMPT="${RPROMPT}-"
+	    #RPROMPT="${RPROMPT}-"
 	    ;;
     esac
 
@@ -232,7 +234,9 @@ update_prompt()
     LANG=C vcs_info >&/dev/null
     # バージョン管理システムの情報があったら右プロンプトに表示する。
     if [ -n "$vcs_info_msg_0_" ]; then
-	RPROMPT="${vcs_info_msg_0_}-${RPROMPT}"
+	#RPROMPT="${vcs_info_msg_0_}-${RPROMPT}"
+	#RPROMPT=""
+    PROMPT="[%F{cyan}%~%f]"${vcs_info_msg_0_}$'\n'"${prompt_left}"
     fi
 }
 
@@ -434,6 +438,7 @@ if [ -n "$DISPLAY" ]; then
     preexec_functions=($preexec_functions update_title)
 fi
 
+PATH=/usr/local/bin:$PATH
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 . `brew --prefix`/etc/profile.d/z.sh
@@ -442,5 +447,16 @@ function precmd () {
 }
 
 alias la="ls -la"
+alias cb="reattach-to-user-namespace -l zsh"
 
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
+if [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
+	alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+	alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+fi
+
+# for get current dir on tmux-powerline
+PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+
+tmux -2

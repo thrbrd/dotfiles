@@ -10,13 +10,17 @@ endif
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'surround.vim'
-NeoBundle 'fugitive.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'git://github.com/honza/snipmate-snippets.git'
+
+" Syntax
 NeoBundle 'css3-syntax-plus'
 NeoBundle 'jQuery'
 NeoBundle 'HTML5-Syntax-File'
 NeoBundle 'Markdown-syntax'
+NeoBundle 'digitaltoad/vim-jade'
+NeoBundle 'aohta/blockdiag.vim'
+
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tComment'
 NeoBundle 'jellybeans.vim'
@@ -29,12 +33,20 @@ NeoBundle 'jshint.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/Simple-Javascript-Indenter'
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'epmatsw/ag.vim'
 NeoBundle 'git://github.com/tyru/skk.vim.git'
+NeoBundle 'kana/vim-fakeclip'
+NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'git://github.com/kana/vim-smartchr.git'
+NeoBundle 'git://github.com/kana/vim-smartinput.git'
+NeoBundle 'git://github.com/mrtazz/simplenote.vim'
+NeoBundle 'https://github.com/taka84u9/unite-git.git'
+NeoBundle 'https://github.com/tacroe/unite-mark.git'
+NeoBundle 'https://github.com/h1mesuke/unite-outline.git'
+NeoBundle 'https://github.com/thinca/vim-qfreplace.git'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -43,16 +55,14 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'aohta/blockdiag.vim'
 
 " Powerline
 let g:Powerline_symbols = 'fancy'
 set t_Co=256
 
 " Color scheme
-colorscheme jellybeans
-" colorscheme molokai
+" colorscheme jellybeans
+colorscheme molokai
 
 " タブとか改行を表示する
 set list
@@ -105,6 +115,10 @@ nmap <C-k> <C-w>k
 nmap <C-m> :nohl <return>
 nmap <C-v> :vertical diffsplit 
 nmap <C-o> :VimFiler <return>
+nmap ¥ \
+vmap ¥ \
+imap ¥ \
+cmap ¥ \
 vmap s S
 vmap <silent> > >gv
 vmap <silent> < <gv
@@ -113,10 +127,6 @@ vmap <silent> < <gv
 nmap <C-e> <C-y>,
 imap <C-e> <C-y>,
 vmap <C-e> <C-y>,
-
-" fugitive(git plugin) keybind
-nmap <Leader>ga :Gwrite <return>
-nmap <Leader>gc :Gcommit <return>
 
 " gundo keybind
 nmap <C-b> :GundoToggle <return>
@@ -301,14 +311,14 @@ let g:Powerline_colorscheme='my'
 filetype plugin on
 au BufEnter * execute ":lcd " . expand("%:p:h")
 
-" syntastic
-let g:syntastic_check_on_open=1 "ファイルを開いたにチェックする
-let g:syntastic_check_on_save=1 "保存時にはチェック
-let g:syntastic_auto_loc_list=1 "エラーがあったら自動でロケーションリストを開く
-let g:syntastic_loc_list_height=6 "エラー表示ウィンドウの高さ
-set statusline+=%#warningmsg# "エラーメッセージの書式
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" " syntastic
+" let g:syntastic_check_on_open=1 "ファイルを開いたにチェックする
+" let g:syntastic_check_on_save=1 "保存時にはチェック
+" let g:syntastic_auto_loc_list=1 "エラーがあったら自動でロケーションリストを開く
+" let g:syntastic_loc_list_height=6 "エラー表示ウィンドウの高さ
+" set statusline+=%#warningmsg# "エラーメッセージの書式
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 let g:syntastic_javascript_checker = 'jshint' "jshintを使う
 let g:syntastic_mode_map = {
       \ 'mode': 'active',
@@ -368,3 +378,40 @@ let skk_keep_state = 0
 let skk_egg_like_newline = 1
 let skk_show_annotation = 1
 let skk_use_face = 1
+
+" 無限undoと編集位置の自動復帰 http://blog.papix.net/entry/2012/12/14/042937
+if has('persistent_undo')
+	set undodir=~/.vim/undo
+	set undofile
+endif
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+
+" smartchr settings
+inoremap <expr> = smartchr#loop('=', ' = ', ' == ', ' === ')
+inoremap <expr> ! smartchr#loop('!', ' != ')
+inoremap <expr> > smartchr#loop('>', ' > ', ' >= ')
+inoremap <expr> < smartchr#loop('<', ' < ', ' <= ')
+inoremap <expr> , smartchr#loop(',', ', ')
+inoremap <expr> : smartchr#loop(': ', ':')
+
+" For Simple Note edit.
+if filereadable(expand('~/.vimsimplenoterc'))
+  source ~/.vimsimplenoterc
+endif
+
+" for simplenote.vim
+nmap <Leader>snl :Simplenote -l<CR>
+nmap <Leader>snn :Simplenote -n<CR>
+if has("mac")
+  " markdownをMarked.appで開く
+  :nnoremap <leader>om :silent !open -a Marked.app '%:p'<cr>:redraw!<cr>
+endif
+
+" for unite.vim
+nmap <Leader>ub :Unite buffer<CR>
+nmap <Leader>ug :Unite git_modified<CR>
+nmap <Leader>um :Unite mark<CR>
+
+if has('gui_macvim')
+	set transparency=10
+endif
