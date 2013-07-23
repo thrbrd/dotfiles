@@ -10,17 +10,13 @@ endif
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'surround.vim'
+NeoBundle 'fugitive.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'git://github.com/honza/snipmate-snippets.git'
-
-" Syntax
 NeoBundle 'css3-syntax-plus'
 NeoBundle 'jQuery'
 NeoBundle 'HTML5-Syntax-File'
 NeoBundle 'Markdown-syntax'
-NeoBundle 'digitaltoad/vim-jade'
-NeoBundle 'aohta/blockdiag.vim'
-
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tComment'
 NeoBundle 'jellybeans.vim'
@@ -33,6 +29,7 @@ NeoBundle 'jshint.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/Simple-Javascript-Indenter'
 NeoBundle 'thinca/vim-ref'
+NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -40,6 +37,7 @@ NeoBundle 'epmatsw/ag.vim'
 NeoBundle 'git://github.com/tyru/skk.vim.git'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'aohta/blockdiag.vim'
 NeoBundle 'git://github.com/kana/vim-smartchr.git'
 NeoBundle 'git://github.com/kana/vim-smartinput.git'
 NeoBundle 'git://github.com/mrtazz/simplenote.vim'
@@ -127,6 +125,10 @@ vmap <silent> < <gv
 nmap <C-e> <C-y>,
 imap <C-e> <C-y>,
 vmap <C-e> <C-y>,
+
+" fugitive(git plugin) keybind
+nmap <Leader>ga :Gwrite <return>
+nmap <Leader>gc :Gcommit <return>
 
 " gundo keybind
 nmap <C-b> :GundoToggle <return>
@@ -408,9 +410,10 @@ if has("mac")
 endif
 
 " for unite.vim
-nmap <Leader>ub :Unite buffer<CR>
+nmap <Leader>ub :Unite buffer_tab<CR>
 nmap <Leader>ug :Unite git_modified<CR>
 nmap <Leader>um :Unite mark<CR>
+nmap <Leader>ur :Unite register<CR>
 
 if has('gui_macvim')
 	set transparency=10
