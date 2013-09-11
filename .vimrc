@@ -10,57 +10,55 @@ endif
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'surround.vim'
-NeoBundle 'fugitive.vim'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'git://github.com/honza/snipmate-snippets.git'
-NeoBundle 'css3-syntax-plus'
-NeoBundle 'jQuery'
-NeoBundle 'HTML5-Syntax-File'
-NeoBundle 'Markdown-syntax'
-NeoBundle 'thinca/vim-quickrun'
+" NeoBundle 'fugitive.vim'
+NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'hail2u/vim-css3-syntax.git'
 NeoBundle 'tComment'
 NeoBundle 'jellybeans.vim'
 NeoBundle 'tomasr/molokai'
-NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'git://github.com/Shougo/neosnippet.git'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Gundo'
 NeoBundle 'jshint.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/Simple-Javascript-Indenter'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'epmatsw/ag.vim'
-NeoBundle 'git://github.com/tyru/skk.vim.git'
+NeoBundle 'tyru/skk.vim.git'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'aohta/blockdiag.vim'
-NeoBundle 'git://github.com/kana/vim-smartchr.git'
-NeoBundle 'git://github.com/kana/vim-smartinput.git'
-NeoBundle 'git://github.com/mrtazz/simplenote.vim'
-NeoBundle 'https://github.com/taka84u9/unite-git.git'
-NeoBundle 'https://github.com/tacroe/unite-mark.git'
-NeoBundle 'https://github.com/h1mesuke/unite-outline.git'
-NeoBundle 'https://github.com/thinca/vim-qfreplace.git'
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+NeoBundle 'kana/vim-smartchr.git'
+NeoBundle 'kana/vim-smartinput.git'
+NeoBundle 'mrtazz/simplenote.vim'
+NeoBundle 'taka84u9/unite-git.git'
+NeoBundle 'thinca/vim-qfreplace.git'
+NeoBundle 'tpope/vim-abolish.git'
+NeoBundle 'teramako/jscomplete-vim.git'
+NeoBundle 'deris/vim-rengbang'
+NeoBundle 'bling/vim-airline.git'
+NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'thinca/vim-unite-history'
+NeoBundle 'ujihisa/unite-locate'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'vim-scripts/vcscommand.vim.git'
+" NeoBundle 'Shougo/vimproc', {
+"       \ 'build' : {
+"       \     'windows' : 'make -f make_mingw32.mak',
+"       \     'cygwin' : 'make -f make_cygwin.mak',
+"       \     'mac' : 'make -f make_mac.mak',
+"       \     'unix' : 'make -f make_unix.mak',
+"       \    },
+"       \ }
 
-" Powerline
-let g:Powerline_symbols = 'fancy'
+" Airline
+let g:airline#extensions#tabline#enabled = 1
 set t_Co=256
 
 " Color scheme
-" colorscheme jellybeans
-colorscheme molokai
+colorscheme jellybeans
+" colorscheme molokai
 
 " タブとか改行を表示する
 set list
@@ -107,12 +105,14 @@ nmap <C-t> :tabedit <return>
 nmap <C-c> :tabclose <return>
 nmap <C-n> :tabnext <return>
 nmap <C-p> :tabprevious <return>
-nmap <C-l> <C-w>l
-nmap <C-h> <C-w>h
-nmap <C-k> <C-w>k
+nmap <S-l> <C-w>l
+nmap <S-h> <C-w>h
+nmap <S-k> <C-w>k
+nmap <S-j> <C-w>j
 nmap <C-m> :nohl <return>
-nmap <C-v> :vertical diffsplit 
 nmap <C-o> :VimFiler <return>
+nmap <Leader>r :QuickRun <return>
+nmap <Leader>ig :IndentGuidesToggle <return>
 nmap ¥ \
 vmap ¥ \
 imap ¥ \
@@ -125,13 +125,6 @@ vmap <silent> < <gv
 nmap <C-e> <C-y>,
 imap <C-e> <C-y>,
 vmap <C-e> <C-y>,
-
-" fugitive(git plugin) keybind
-nmap <Leader>ga :Gwrite <return>
-nmap <Leader>gc :Gcommit <return>
-
-" gundo keybind
-nmap <C-b> :GundoToggle <return>
 
 " Shougo/neocomplcache Setting
 let g:neocomplcache_enable_at_startup = 1
@@ -157,158 +150,6 @@ smap <C-k> <Plug>(neocomplcache_snippets_expand)
 
 " Edit snippet files.
 nmap <Space>nes :<C-u>NeoComplCacheEditSnippets<CR>
-
-" powerline colorscheme
-call Pl#Hi#Allocate({
-  \ 'black'          : 16,
-    \ 'white'          : 231,
-  \
-    \ 'darkestgreen'   : 22,
-  \ 'darkgreen'      : 28,
-    \
-  \ 'darkestcyan'    : 23,
-    \ 'mediumcyan'     : 117,
-  \
-    \ 'darkestblue'    : 24,
-  \ 'darkblue'       : 31,
-    \
-  \ 'darkestred'     : 52,
-    \ 'darkred'        : 88,
-  \ 'mediumred'      : 124,
-    \ 'brightred'      : 160,
-  \ 'brightestred'   : 196,
-    \
-  \
-    \ 'darkestyellow'  : 59,
-  \ 'darkyellow'     : 100,
-    \ 'darkestpurple'  : 55,
-  \ 'mediumpurple'   : 98,
-    \ 'brightpurple'   : 189,
-  \
-    \ 'brightorange'   : 208,
-  \ 'brightestorange': 214,
-    \
-  \ 'gray0'          : 233,
-    \ 'gray1'          : 235,
-  \ 'gray2'          : 236,
-    \ 'gray3'          : 239,
-  \ 'gray4'          : 240,
-    \ 'gray5'          : 241,
-  \ 'gray6'          : 244,
-    \ 'gray7'          : 245,
-  \ 'gray8'          : 247,
-    \ 'gray9'          : 250,
-  \ 'gray10'         : 252,
-    \ })
-" 'n': normal mode
-" 'i': insert mode
-" 'v': visual mode
-" 'r': replace mode
-" 'N': not active
-let g:Powerline#Colorschemes#my#colorscheme = Pl#Colorscheme#Init([
-  \ Pl#Hi#Segments(['SPLIT'], {
-      \ 'n': ['white', 'gray2'],
-      \ 'N': ['gray0', 'gray0'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['mode_indicator'], {
-      \ 'i': ['darkestgreen', 'white', ['bold']],
-      \ 'n': ['darkestcyan', 'white', ['bold']],
-      \ 'v': ['darkestpurple', 'white', ['bold']],
-      \ 'r': ['mediumred', 'white', ['bold']],
-      \ 's': ['white', 'gray5', ['bold']],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['fileinfo', 'filename'], {
-      \ 'i': ['white', 'darkgreen', ['bold']],
-      \ 'n': ['white', 'darkblue', ['bold']],
-      \ 'v': ['white', 'mediumpurple', ['bold']],
-      \ 'r': ['white', 'brightred', ['bold']],
-      \ 'N': ['gray0', 'gray2', ['bold']],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['branch', 'scrollpercent', 'raw', 'filesize'], {
-      \ 'n': ['gray2', 'gray7'],
-      \ 'N': ['gray0', 'gray2'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['fileinfo.filepath', 'status'], {
-      \ 'n': ['gray10'],
-      \ 'N': ['gray5'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['static_str'], {
-      \ 'n': ['white', 'gray4'],
-      \ 'N': ['gray1', 'gray1'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['fileinfo.flags'], {
-      \ 'n': ['white'],
-      \ 'N': ['gray4'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['currenttag', 'fileformat', 'fileencoding', 'pwd', 'filetype', 'rvm:string', 'rvm:statusline', 'virtualenv:statusline', 'charcode', 'currhigroup'], {
-      \ 'n': ['gray9', 'gray4'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['lineinfo'], {
-      \ 'n': ['gray2', 'gray10'],
-      \ 'N': ['gray2', 'gray4'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['errors'], {
-      \ 'n': ['brightestorange', 'gray2', ['bold']],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['lineinfo.line.tot'], {
-      \ 'n': ['gray2'],
-      \ 'N': ['gray2'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['paste_indicator', 'ws_marker'], {
-      \ 'n': ['white', 'brightred', ['bold']],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['gundo:static_str.name', 'command_t:static_str.name'], {
-      \ 'n': ['white', 'mediumred', ['bold']],
-      \ 'N': ['brightred', 'darkestred', ['bold']],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['gundo:static_str.buffer', 'command_t:raw.line'], {
-      \ 'n': ['white', 'darkred'],
-      \ 'N': ['brightred', 'darkestred'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['gundo:SPLIT', 'command_t:SPLIT'], {
-      \ 'n': ['white', 'darkred'],
-      \ 'N': ['white', 'darkestred'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['ctrlp:focus', 'ctrlp:byfname'], {
-      \ 'n': ['brightpurple', 'darkestpurple'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['ctrlp:prev', 'ctrlp:next', 'ctrlp:pwd'], {
-      \ 'n': ['white', 'mediumpurple'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['ctrlp:item'], {
-      \ 'n': ['darkestpurple', 'white', ['bold']],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['ctrlp:marked'], {
-      \ 'n': ['brightestred', 'darkestpurple', ['bold']],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['ctrlp:count'], {
-      \ 'n': ['darkestpurple', 'white'],
-      \ }),
-    \
-  \ Pl#Hi#Segments(['ctrlp:SPLIT'], {
-      \ 'n': ['white', 'darkestpurple'],
-      \ }),
-    \ ])
-let g:Powerline_colorscheme='my'
 
 filetype plugin on
 au BufEnter * execute ":lcd " . expand("%:p:h")
@@ -360,18 +201,6 @@ let g:EasyMotion_grouping=1
 hi EasyMotionTarget ctermbg=none ctermfg=red
 hi EasyMotionShade  ctermbg=none ctermfg=blue
 
-" for Dash.app
-function! s:dash(...)
-	let ft = &filetype
-	if &filetype == 'python'
-		let ft = ft.'2'
-	endif
-	let ft = ft.':'
-	let word = len(a:000) == 0 ? input('Dash search: ', ft.expand('<cword>')) : ft.join(a:000, ' ')
-	call system(printf("open dash://'%s'", word))
-endfunction
-command! -nargs=* Dash call <SID>dash(<f-args>)
-
 " for skk.vim
 let skk_jisyo = '~/.skk-dic'
 let skk_large_jisyo = '~/.skk-dic/SKK-JISYO.L'
@@ -415,6 +244,10 @@ nmap <Leader>ug :Unite git_modified<CR>
 nmap <Leader>um :Unite mark<CR>
 nmap <Leader>ur :Unite register<CR>
 
+" macvimの透明度を調整
 if has('gui_macvim')
 	set transparency=10
 endif
+
+" DOMとMozilla関連とES6のメソッドを補完
+let g:jscomplete_use = ['dom', 'moz', 'es6th']

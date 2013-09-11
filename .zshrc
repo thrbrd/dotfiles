@@ -32,6 +32,7 @@ alias L='| less'
 alias nf='nodefront serve -cl'
 alias pngo='optipng'
 alias chrome='open -a Google\ Chrome'
+alias macvim='open -a MacVim'
 
 export SVN_EDITOR='vi'
 
