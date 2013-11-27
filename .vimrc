@@ -24,7 +24,7 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'jshint.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'epmatsw/ag.vim'
@@ -54,6 +54,10 @@ NeoBundle 'kana/vim-niceblock'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'kannokanno/unite-todo'
+NeoBundle 'osyo-manga/vim-sound'
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'thinca/vim-quickrun'
 " }}} ==============================================================================
 " {{{ [management] Color scheme
 " ==================================================================================
@@ -268,7 +272,7 @@ nmap ,uh :Unite file_mru <return>
 nmap ,ur :Unite register <return>
 nmap ,ug :Unite git_modified<return>
 nmap ,ul :Unite locate<return>
-nmap ,ut<return> :Unite todo<return>
+nmap ,ut<return> :Unite todo:undone<return>
 nmap ,utt :Unite todo:tag:
 nmap ,uta :UniteTodoAddSimple -tag<return>
 " }}} ==============================================================================
@@ -278,3 +282,49 @@ nmap ,uta :UniteTodoAddSimple -tag<return>
 " 	set transparency=10
 " endif
 " }}} ==============================================================================
+" {{{ [settings][sound] MineCraft
+" ==================================================================================
+" let s:se_path = "~/.vim/MinecraftSound/"
+" let s:se_ext = ".wav"
+" function! s:change_sound_name(base_name)
+"   return expand(s:se_path . a:base_name . s:se_ext)
+" endfunction
+" 
+" function! PlaySE(name)
+"   call sound#play_wav(s:change_sound_name(a:name))
+" endfunction
+
+" autocmd CompleteDone * call PlaySE("bowhit1")
+" autocmd BufEnter * call PlaySE("door_open")
+" autocmd InsertCharPre * call PlaySE("stone3")
+" autocmd BufWrite * call PlaySE("explode1")
+" autocmd InsertEnter * call PlaySE("in")
+" autocmd InsertLeave * call PlaySE("out")
+" autocmd CursorMoved * call PlaySE("wood1")
+" nnoremap <C-m> :nohlsearch<CR>:call PlaySE("splash")<CR>
+" }}} ==============================================================================
+
+let g:gist_use_password_in_gitconfig = 1
+
+" -------------------------------------------------------------------
+" vim-anzu関連 {{{
+"
+" キーマップ設定
+nmap n nzz<Plug>(anzu-update-search-status)
+nmap N Nzz<Plug>(anzu-update-search-status)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
+" ESC2回押しで検索ハイライトを消去
+nmap <C-M> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
+" format = (該当数/全体数)
+let g:anzu_status_format = "(%i/%l)"
+"}}}
+
+" -------------------------------------------------------------------
+" vim-airline関連 {{{
+"
+" vim-anzuの表示を statuslineに
+let g:airline_section_c = '%F %{anzu#search_status()}'
+" whitespace無効
+let g:airline#extensions#whitespace#enabled = 0
+"}}}
