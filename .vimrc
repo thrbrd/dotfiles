@@ -15,7 +15,7 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'surround.vim'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'Shougo/neocomplete'
+" NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'hail2u/vim-css3-syntax.git'
 NeoBundle 'tComment'
@@ -35,7 +35,8 @@ NeoBundle 'kana/vim-smartchr.git'
 NeoBundle 'mrtazz/simplenote.vim'
 NeoBundle 'thinca/vim-qfreplace.git'
 NeoBundle 'tpope/vim-abolish.git'
-NeoBundle 'teramako/jscomplete-vim.git'
+NeoBundle 'tpope/vim-pathogen'
+" NeoBundle 'teramako/jscomplete-vim.git'
 NeoBundle 'deris/vim-rengbang'
 NeoBundle 'bling/vim-airline.git'
 NeoBundle 'osyo-manga/vim-anzu'
@@ -54,11 +55,22 @@ NeoBundle 'kana/vim-niceblock'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'kannokanno/unite-todo'
+NeoBundle 'osyo-manga/vim-over'
+NeoBundle 'syui/wauto.vim'
+NeoBundle 'itspriddle/vim-marked'
+NeoBundle 'tacroe/unite-mark'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'int3/vim-extradite'
+NeoBundle 'thinca/vim-visualstar'
+NeoBundle 'jnurmine/Zenburn'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'mhinz/vim-signify'
 " }}} ==============================================================================
 " {{{ [management] Color scheme
 " ==================================================================================
-colorscheme jellybeans
-" colorscheme molokai
+" colorscheme zenburn
+" colorscheme jellybeans
+colorscheme molokai
 " }}} ==============================================================================
 " {{{ [settings] Initialize
 " ==================================================================================
@@ -88,7 +100,6 @@ set visualbell t_vb=
 set mouse=a
 set cmdheight=2
 set novisualbell
-set foldmethod=marker
 set encoding=utf-8
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 set list
@@ -104,6 +115,7 @@ nmap <C-t> :badd
 nmap <C-n> :bn <return>
 nmap <C-p> :bp <return>
 nmap <C-c> :bdelete <return>
+nmap <C-q> :colorscheme jellybeans <return>
 nmap <S-l> <C-w>l
 nmap <S-h> <C-w>h
 nmap <S-k> <C-w>k
@@ -124,6 +136,8 @@ vmap ¥ \
 vmap s S
 vmap <silent> > >gv
 vmap <silent> < <gv
+vmap <C-s> :OverCommandLine<CR>s/
+vmap <C-r> :RengBang<CR>
 " }}} ==============================================================================
 " {{{ [settings][keybind] Command mode
 " ==================================================================================
@@ -140,6 +154,14 @@ if has('persistent_undo')
 	set undofile
 endif
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+" }}} ==============================================================================
+" {{{ [settings] バッファの表示設定を保存する (foldとか)
+" ==================================================================================
+" Save fold settings.
+" autocmd BufWritePost * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
+" autocmd BufRead * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
+" Don't save options.
+" set viewoptions-=options
 " }}} ==============================================================================
 " {{{ [settings][plugin] Syntastic
 " ==================================================================================
@@ -243,10 +265,10 @@ let skk_use_face = 1
 " }}} ==============================================================================
 " {{{ [settings][plugin] smartchr
 " ==================================================================================
-inoremap <expr> = smartchr#loop('=', ' = ', ' == ', ' === ')
-inoremap <expr> ! smartchr#loop('!', ' != ')
-inoremap <expr> > smartchr#loop('>', ' > ', ' >= ')
-inoremap <expr> < smartchr#loop('<', ' < ', ' <= ')
+" inoremap <expr> = smartchr#loop('=', ' = ', ' == ', ' === ')
+" inoremap <expr> ! smartchr#loop('!', ' != ')
+" inoremap <expr> > smartchr#loop('>', ' > ', ' >= ')
+" inoremap <expr> < smartchr#loop('<', ' < ', ' <= ')
 " }}} ==============================================================================
 " {{{ [settings][plugin] simplenote.vim
 " ==================================================================================
@@ -271,10 +293,16 @@ nmap ,ul :Unite locate<return>
 nmap ,ut<return> :Unite todo<return>
 nmap ,utt :Unite todo:tag:
 nmap ,uta :UniteTodoAddSimple -tag<return>
+nmap ,ua :Unite mark<return>
+nmap ,uc :Unite -auto-preview colorscheme<return>
 " }}} ==============================================================================
 " {{{ [settings][macvim] Opacity level
 " ==================================================================================
-" if has('gui_macvim')
-" 	set transparency=10
-" endif
+if has('gui_macvim')
+	set transparency=5
+endif
+" }}} ==============================================================================
+" {{{ [settings][plugin] wauto.vim
+" ==================================================================================
+let g:auto_write = 1
 " }}} ==============================================================================
