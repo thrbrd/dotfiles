@@ -104,6 +104,7 @@ set encoding=utf-8
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 set list
 set listchars=eol:¬,tab:▸\ ,extends:>,precedes:<,trail:-
+:SignifyToggle
 " }}} ==============================================================================
 " {{{ [settings][keybind] Normal mode
 " ==================================================================================
@@ -125,6 +126,9 @@ nmap <C-o> :VimFiler <return>
 nmap <Leader>r :QuickRun <return>
 nmap <Leader>ig :IndentGuidesToggle <return>
 nmap ¥ \
+nmap <C-h> :SignifyToggle <return>
+nmap <S-g><S-a> :Gwrite <return>
+nmap <S-g><S-c> :Gcommit <return>
 " }}} ==============================================================================
 " {{{ [settings][keybind] Insert mode
 " ==================================================================================
