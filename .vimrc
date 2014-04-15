@@ -65,6 +65,12 @@ NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'jnurmine/Zenburn'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'mhinz/vim-signify'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'vim-scripts/dbext.vim'
+NeoBundle 't9md/vim-quickhl'
+" NeoBundle 'mattn/vim-textobj-url'
+NeoBundle 'yuratomo/w3m.vim'
+NeoBundle 'eregex.vim'
 " }}} ==============================================================================
 " {{{ [management] Color scheme
 " ==================================================================================
@@ -101,7 +107,7 @@ set mouse=a
 set cmdheight=2
 set novisualbell
 set encoding=utf-8
-set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 set list
 set listchars=eol:¬,tab:▸\ ,extends:>,precedes:<,trail:-
 :SignifyToggle
@@ -112,7 +118,7 @@ nmap j gj
 nmap k gk
 nmap > >>
 nmap < <<
-nmap <C-t> :badd 
+nmap <C-t> :badd
 nmap <C-n> :bn <return>
 nmap <C-p> :bp <return>
 nmap <C-c> :bdelete <return>
@@ -151,19 +157,19 @@ cmap ¥ \
 " ==================================================================================
 map R <Plug>(operator-replace)
 " }}} ==============================================================================
-" {{{ [settings] 無限undoと編集位置の自動復帰 http://blog.papix.net/entry/2012/12/14/042937
+" {{{ [settings] 無限undoと編集位置の自動復帰 http://blog.papix.net/entry/2012/12/14/04~
 " ==================================================================================
 if has('persistent_undo')
-	set undodir=~/.vim/undo
-	set undofile
+       set undodir=~/.vim/undo
+       set undofile
 endif
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+" au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
 " }}} ==============================================================================
 " {{{ [settings] バッファの表示設定を保存する (foldとか)
 " ==================================================================================
 " Save fold settings.
 " autocmd BufWritePost * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
-" autocmd BufRead * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
+" autocmd BufRead * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | en~
 " Don't save options.
 " set viewoptions-=options
 " }}} ==============================================================================
@@ -179,7 +185,7 @@ let g:syntastic_mode_map = {
 " Change error marks
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
+let g:syntastic_warning_symbol=' '
 " }}} ==============================================================================
 " {{{ [settings][plugin] Syntastic file saved validate
 " ==================================================================================
@@ -226,7 +232,7 @@ imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 filetype plugin on
-au BufEnter * execute ":lcd " . expand("%:p:h")
+" au BufEnter * execute ":lcd " . expand("%:p:h")
 " }}} ==============================================================================
 " {{{ [settings][plugin] emmet-vim (zen-coding)
 " ==================================================================================
@@ -267,23 +273,6 @@ let skk_egg_like_newline = 1
 let skk_show_annotation = 1
 let skk_use_face = 1
 " }}} ==============================================================================
-" {{{ [settings][plugin] smartchr
-" ==================================================================================
-" inoremap <expr> = smartchr#loop('=', ' = ', ' == ', ' === ')
-" inoremap <expr> ! smartchr#loop('!', ' != ')
-" inoremap <expr> > smartchr#loop('>', ' > ', ' >= ')
-" inoremap <expr> < smartchr#loop('<', ' < ', ' <= ')
-" }}} ==============================================================================
-" {{{ [settings][plugin] simplenote.vim
-" ==================================================================================
-" Login informations.
-if filereadable(expand('~/.vimsimplenoterc'))
-  source ~/.vimsimplenoterc
-endif
-
-nmap <Leader>snl :Simplenote -l<CR>
-nmap <Leader>snn :Simplenote -n<CR>
-" }}} ==============================================================================
 " {{{ [settings][plugin] unite.vim
 " ==================================================================================
 nmap ,ub :Unite buffer_tab <return>
@@ -299,14 +288,14 @@ nmap ,utt :Unite todo:tag:
 nmap ,uta :UniteTodoAddSimple -tag<return>
 nmap ,ua :Unite mark<return>
 nmap ,uc :Unite -auto-preview colorscheme<return>
+autocmd FileType git :setlocal foldlevel=99
 " }}} ==============================================================================
 " {{{ [settings][macvim] Opacity level
 " ==================================================================================
 if has('gui_macvim')
-	set transparency=5
+       set transparency=5
 endif
 " }}} ==============================================================================
 " {{{ [settings][plugin] wauto.vim
 " ==================================================================================
 let g:auto_write = 1
-" }}} ==============================================================================
