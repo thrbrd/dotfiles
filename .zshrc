@@ -1,15 +1,6 @@
 #=============================
 # source auto-fu.zsh
 #=============================
-source ~/.zsh/auto-fu.zsh
-    function zle-line-init () {
-        auto-fu-init
-    }
-    zle -N zle-line-init
-    zstyle ':completion:*' completer _oldlist _complete
-
-# -*- sh -*-
-
 # syntax highlight
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -27,6 +18,10 @@ alias gco='git checkout'
 alias gmg='git merge'
 alias rmds='find ./ -name ".DS_Store" -print -exec rm {} ";"'
 alias L='| less'
+alias p='open -a Preview'
+alias aai='open -a Adobe\ Illustrator'
+alias aps='open -a Adobe\ Photoshop\ CC'
+alias ap='apparix'
 
 # alias
 alias nf='nodefront serve -cl'
@@ -461,3 +456,46 @@ fi
 PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
 tmux -2
+
+# add bookmark with apparix
+function b() {
+	case $1 in
+		-l)
+			apparix
+		;;
+		*)
+			apparix --add-mark $1
+		;;
+	esac
+}
+
+# jump to bookmark with apparix
+function t() {
+	cd `apparix $1`
+}
+
+# Enter -> git status and ls
+function do_enter() {
+    if [ -n "$BUFFER" ]; then
+        zle accept-line
+        return 0
+    fi
+    echo
+    ls -la
+    # ↓おすすめ
+    # ls_abbrev
+    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+        echo
+        echo -e "\e[0;33m--- git status ---\e[0m"
+        git status -s
+    fi
+    zle reset-prompt
+	echo
+	echo
+    return 0
+}
+zle -N do_enter
+bindkey '^m' do_enter
+
+autoload -U edit-command-line
+zle -N edit-command-line
