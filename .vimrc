@@ -24,7 +24,7 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'jshint.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'epmatsw/ag.vim'
@@ -55,22 +55,26 @@ NeoBundle 'kana/vim-niceblock'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'kannokanno/unite-todo'
-NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'syui/wauto.vim'
-NeoBundle 'itspriddle/vim-marked'
-NeoBundle 'tacroe/unite-mark'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'int3/vim-extradite'
-NeoBundle 'thinca/vim-visualstar'
-NeoBundle 'jnurmine/Zenburn'
+" NeoBundle 'osyo-manga/vim-over'
+" NeoBundle 'syui/wauto.vim'
+" NeoBundle 'itspriddle/vim-marked'
+" NeoBundle 'tacroe/unite-mark'
+" NeoBundle 'ujihisa/unite-colorscheme'
+" NeoBundle 'int3/vim-extradite'
+" NeoBundle 'thinca/vim-visualstar'
+" NeoBundle 'jnurmine/Zenburn'
+" NeoBundle 'thinca/vim-quickrun'
+" NeoBundle 'mhinz/vim-signify'
+" NeoBundle 'Shougo/neomru.vim'
+" NeoBundle 'vim-scripts/dbext.vim'
+" NeoBundle 't9md/vim-quickhl'
+" " NeoBundle 'mattn/vim-textobj-url'
+" NeoBundle 'yuratomo/w3m.vim'
+" NeoBundle 'eregex.vim'
+NeoBundle 'osyo-manga/vim-sound'
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'mattn/webapi-vim'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'mhinz/vim-signify'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'vim-scripts/dbext.vim'
-NeoBundle 't9md/vim-quickhl'
-" NeoBundle 'mattn/vim-textobj-url'
-NeoBundle 'yuratomo/w3m.vim'
-NeoBundle 'eregex.vim'
 " }}} ==============================================================================
 " {{{ [management] Color scheme
 " ==================================================================================
@@ -131,7 +135,7 @@ nmap <C-m> :nohl <return>
 nmap <C-o> :VimFiler <return>
 nmap <Leader>r :QuickRun <return>
 nmap <Leader>ig :IndentGuidesToggle <return>
-nmap ¥ \
+nrap ¥ \
 nmap <C-h> :SignifyToggle <return>
 nmap <S-g><S-a> :Gwrite <return>
 nmap <S-g><S-c> :Gcommit <return>
@@ -289,7 +293,7 @@ nmap ,uh :Unite file_mru <return>
 nmap ,ur :Unite register <return>
 nmap ,ug :Unite git_modified<return>
 nmap ,ul :Unite locate<return>
-nmap ,ut<return> :Unite todo<return>
+nmap ,ut<return> :Unite todo:undone<return>
 nmap ,utt :Unite todo:tag:
 nmap ,uta :UniteTodoAddSimple -tag<return>
 nmap ,ua :Unite mark<return>

@@ -1,6 +1,15 @@
 #=============================
 # source auto-fu.zsh
 #=============================
+# source ~/.zsh/auto-fu.zsh
+#     function zle-line-init () {
+#         auto-fu-init
+#     }
+#     zle -N zle-line-init
+#     zstyle ':completion:*' completer _oldlist _complete
+
+# -*- sh -*-
+
 # syntax highlight
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -28,6 +37,7 @@ alias nf='nodefront serve -cl'
 alias pngo='optipng'
 alias chrome='open -a Google\ Chrome'
 alias macvim='open -a MacVim'
+alias finder='open -a Finder'
 
 export SVN_EDITOR='vi'
 
