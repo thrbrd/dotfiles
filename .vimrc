@@ -135,6 +135,12 @@ nmap ¥ \
 nmap <C-h> :SignifyToggle <return>
 nmap <S-g><S-a> :Gwrite <return>
 nmap <S-g><S-c> :Gcommit <return>
+nmap <S-g><S-b> :Gblame <return>
+nmap <S-g><S-s> :Gstatus <return>
+nmap <S-g><S-p><S-s> :Git push <return>
+nmap <S-g><S-p><S-l> :Git pull <return>
+nmap <S-g><S-v> :Gitv <return>
+nmap <S-g><S-f> :Gitv! <return>
 " }}} ==============================================================================
 " {{{ [settings][keybind] Insert mode
 " ==================================================================================
