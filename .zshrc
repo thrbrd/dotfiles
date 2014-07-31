@@ -36,8 +36,9 @@ alias ap='apparix'
 alias nf='nodefront serve -cl'
 alias pngo='optipng'
 alias chrome='open -a Google\ Chrome'
-alias macvim='open -a MacVim'
+alias macvim='open -a /Applications/MacVim.app'
 alias finder='open -a Finder'
+alias preview='open -a Preview'
 
 export SVN_EDITOR='vi'
 

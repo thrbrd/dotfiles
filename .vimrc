@@ -1,8 +1,8 @@
 " {{{ [maganement] NeoBundle
 " ==================================================================================
 if !&compatible
-  " Enable no Vi compatible commands.
-  set nocompatible
+	" Enable no Vi compatible commands.
+	set nocompatible
 endif
 
 if has('vim_starting')
@@ -15,7 +15,7 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'surround.vim'
 NeoBundle 'tpope/vim-fugitive'
-" NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'hail2u/vim-css3-syntax.git'
 NeoBundle 'tComment'
@@ -36,7 +36,7 @@ NeoBundle 'mrtazz/simplenote.vim'
 NeoBundle 'thinca/vim-qfreplace.git'
 NeoBundle 'tpope/vim-abolish.git'
 NeoBundle 'tpope/vim-pathogen'
-" NeoBundle 'teramako/jscomplete-vim.git'
+NeoBundle 'teramako/jscomplete-vim.git'
 NeoBundle 'deris/vim-rengbang'
 NeoBundle 'bling/vim-airline.git'
 NeoBundle 'osyo-manga/vim-anzu'
@@ -76,6 +76,9 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'jaxbot/github-issues.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'bronson/vim-trailing-whitespace'
+NeoBundle 'kakkyz81/evervim'
 " }}} ==============================================================================
 " {{{ [management] Color scheme
 " ==================================================================================
@@ -112,7 +115,7 @@ set mouse=a
 set cmdheight=2
 set novisualbell
 set encoding=utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileencodings=sjis,utf-8,ucs-bom,iso-2022-jp,cp932,euc-jp,default,latin
 set list
 set listchars=eol:¬,tab:▸\ ,extends:>,precedes:<,trail:-
 " :SignifyToggle
@@ -135,15 +138,16 @@ nmap <S-j> <C-w>j
 nmap <C-m> :nohl <return>
 nmap <C-o> :VimFiler <return>
 nmap <Leader>r :QuickRun <return>
-nmap <Leader>ig :IndentGuidesToggle <return>
 nmap ¥ \
 nmap <C-h> :SignifyToggle <return>
 nmap <S-g><S-a> :Gwrite <return>
 nmap <S-g><S-c> :Gcommit <return>
 nmap <S-g><S-b> :Gblame <return>
 nmap <S-g><S-s> :Gstatus <return>
-nmap <S-g><S-p><S-s> :Git push <return>
-nmap <S-g><S-p><S-l> :Git pull <return>
+nmap <S-g><S-p><S-s> :Git push 
+nmap <S-g><S-p><S-l> :Git pull 
+nmap <S-g><S-c><S-o> :Git checkout 
+nmap <S-g><S-m><S-g> :Git merge 
 nmap <S-g><S-v> :Gitv <return>
 nmap <S-g><S-f> :Gitv! <return>
 " }}} ==============================================================================
@@ -208,30 +212,22 @@ let g:syntastic_warning_symbol=' '
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
 " }}} ==============================================================================
-" {{{ [settings][plugin] neosnippet
-" ==================================================================================
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-" }}} ==============================================================================
 " {{{ [settings][plugin] neocomplete
 " ==================================================================================
 let g:neocomplete#enable_at_startup = 1
-function InsertTabWrapper()
-    if pumvisible()
-        return "\<c-n>"
-    endif
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k\|<\|/'
-        return "\<tab>"
-    elseif exists('&omnifunc') && &omnifunc == ''
-        return "\<c-n>"
-    else
-        return "\<c-x>\<c-o>"
-    endif
-endfunction
+" function InsertTabWrapper()
+"     if pumvisible()
+"         return "\<c-n>"
+"     endif
+"     let col = col('.') - 1
+"     if !col || getline('.')[col - 1] !~ '\k\|<\|/'
+"         return "\<tab>"
+"     elseif exists('&omnifunc') && &omnifunc == ''
+"         return "\<c-n>"
+"     else
+"         return "\<c-x>\<c-o>"
+"     endif
+" endfunction
 let g:neocomplete_snippets_dir = '~/dotfiles/.neocon-snippets'
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'javascript' : $HOME.'/dotfiles/.neocon-snippets/javascript.snip'
@@ -244,6 +240,14 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 filetype plugin on
 " au BufEnter * execute ":lcd " . expand("%:p:h")
+" }}} ==============================================================================
+" {{{ [settings][plugin] neosnippet
+" ==================================================================================
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 " }}} ==============================================================================
 " {{{ [settings][plugin] emmet-vim (zen-coding)
 " ==================================================================================
@@ -304,9 +308,19 @@ autocmd FileType git :setlocal foldlevel=99
 " {{{ [settings][macvim] Opacity level
 " ==================================================================================
 if has('gui_macvim')
-       set transparency=5
+    set transparency=5
 endif
 " }}} ==============================================================================
 " {{{ [settings][plugin] wauto.vim
 " ==================================================================================
 let g:auto_write = 1
+" }}} ==============================================================================
+" {{{ [settings][plugin] github-issues.vim
+" ==================================================================================
+if filereadable(expand('~/.vimrc_github_issues'))
+	source ~/.vimrc_github_issues
+endif
+" }}} ==============================================================================
+" {{{ [settings][plugin] Indent guides
+" ==================================================================================
+let g:indent_guides_enable_on_vim_startup = 1
