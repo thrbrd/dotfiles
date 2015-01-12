@@ -11,7 +11,7 @@
 # -*- sh -*-
 
 # syntax highlight
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # git alias
 alias gpl='git pull'
@@ -159,31 +159,9 @@ prompt_bar_right="-[%{%B%K{magenta}%F{white}%}%d%{%f%k%b%}]-"
 ###   %#: 一般ユーザなら「%」、rootユーザなら「#」になる。
 prompt_left="-[%h]%(1j,(%j),)%{%B%}%#%{%b%} "
 
-## プロンプトフォーマットを展開した後の文字数を返す。
-## 日本語未対応。
-count_prompt_characters()
-{
-    # print:
-    #   -P: プロンプトフォーマットを展開する。
-    #   -n: 改行をつけない。
-    # sed:
-    #   -e $'s/\e\[[0-9;]*m//g': ANSIエスケープシーケンスを削除。
-    # wc:
-    #   -c: 文字数を出力する。
-    # sed:
-    #   -e 's/ //g': *BSDやMac OS Xのwcは数字の前に空白を出力するので削除する。
-    print -n -P -- "$1" | sed -e $'s/\e\[[0-9;]*m//g' | wc -m | sed -e 's/ //g'
-}
-
 ## プロンプトを更新する。
 update_prompt()
 {
-    # プロンプトバーの左側の文字数を数える。
-    # 左側では最後に実行したコマンドの終了ステータスを使って
-    # いるのでこれは一番最初に実行しなければいけない。そうし
-    # ないと、最後に実行したコマンドの終了ステータスが消えて
-    # しまう。
-    local bar_left_length=$(count_prompt_characters "$prompt_bar_left")
     # プロンプトバーに使える残り文字を計算する。
     # $COLUMNSにはターミナルの横幅が入っている。
     local bar_rest_length=$[COLUMNS - bar_left_length]
@@ -191,8 +169,6 @@ update_prompt()
     local bar_left="$prompt_bar_left"
     # パスに展開される「%d」を削除。
     local bar_right_without_path="${prompt_bar_right:s/%d//}"
-    # 「%d」を抜いた文字数を計算する。
-    local bar_right_without_path_length=$(count_prompt_characters "$bar_right_without_path")
     # パスの最大長を計算する。
     #   $[...]: 「...」を算術演算した結果で展開する。
     local max_path_length=$[bar_rest_length - bar_right_without_path_length]
@@ -448,10 +424,10 @@ fi
 PATH=/usr/local/bin:$PATH
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-. `brew --prefix`/etc/profile.d/z.sh
-function precmd () {
-	_z --add "$(pwd -P)"
-}
+# . `brew --prefix`/etc/profile.d/z.sh
+# function precmd () {
+# 	_z --add "$(pwd -P)"
+# }
 
 alias la="ls -la"
 alias cb="reattach-to-user-namespace -l zsh"
@@ -466,7 +442,7 @@ fi
 # for get current dir on tmux-powerline
 PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
-tmux -2
+# tmux -2
 
 # add bookmark with apparix
 function b() {
@@ -510,3 +486,7 @@ bindkey '^m' do_enter
 
 autoload -U edit-command-line
 zle -N edit-command-line
+
+export NODE_PATH=/usr/local/lib/node_modules
+NPM_PATH=/usr/local/bin/npm
+export PATH=/usr/local/bin:~/bin:$NPM_PATH:$NODE_PATH:$PATH

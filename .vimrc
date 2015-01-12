@@ -1,30 +1,50 @@
+filetype off
+
 " {{{ [maganement] NeoBundle
 " ==================================================================================
-if !&compatible
-	" Enable no Vi compatible commands.
-	set nocompatible
-endif
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
 
 if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-call neobundle#rc(expand('~/.vim/bundle/'))
 
+call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
+call neobundle#end()
+
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'mingw32-make -f make_mingw64.mak',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\   },
+\ }
+
+NeoBundle 'nono/vim-handlebars'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'surround.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'hail2u/vim-css3-syntax.git'
 NeoBundle 'tComment'
 NeoBundle 'jellybeans.vim'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'jshint.vim'
+NeoBundle 'git://github.com/kannokanno/previm.git'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'epmatsw/ag.vim'
@@ -54,7 +74,6 @@ NeoBundle 'vim-scripts/hybrid.vim'
 NeoBundle 'kana/vim-niceblock'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'othree/html5.vim'
-NeoBundle 'kannokanno/unite-todo'
 NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'syui/wauto.vim'
 NeoBundle 'itspriddle/vim-marked'
@@ -68,28 +87,34 @@ NeoBundle 'mhinz/vim-signify'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'vim-scripts/dbext.vim'
 NeoBundle 't9md/vim-quickhl'
-" NeoBundle 'mattn/vim-textobj-url'
-NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'eregex.vim'
 NeoBundle 'osyo-manga/vim-sound'
 NeoBundle 'mattn/gist-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'jaxbot/github-issues.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'bronson/vim-trailing-whitespace'
-NeoBundle 'kakkyz81/evervim'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'tsukkee/unite-tag.git'
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'vim-scripts/CD.vim'
+NeoBundle 'kmnk/vim-unite-giti'
+
+NeoBundleCheck
 " }}} ==============================================================================
 " {{{ [management] Color scheme
 " ==================================================================================
-" colorscheme zenburn
-" colorscheme jellybeans
 colorscheme molokai
 " }}} ==============================================================================
 " {{{ [settings] Initialize
 " ==================================================================================
 syntax on
-set guioptions=m
+filetype off
+filetype plugin on
+set guifont=Ricty_Diminished:h10
+set foldmethod=marker
+set guioptions=
 set visualbell t_vb=
 set clipboard=unnamed
 set virtualedit=block
@@ -115,10 +140,9 @@ set mouse=a
 set cmdheight=2
 set novisualbell
 set encoding=utf-8
-set fileencodings=sjis,utf-8,ucs-bom,iso-2022-jp,cp932,euc-jp,default,latin
+set fileencodings=utf-8,sjis,ucs-bom,iso-2022-jp,cp932,euc-jp,default,latin
 set list
 set listchars=eol:¬,tab:▸\ ,extends:>,precedes:<,trail:-
-" :SignifyToggle
 " }}} ==============================================================================
 " {{{ [settings][keybind] Normal mode
 " ==================================================================================
@@ -150,6 +174,10 @@ nmap <S-g><S-c><S-o> :Git checkout
 nmap <S-g><S-m><S-g> :Git merge 
 nmap <S-g><S-v> :Gitv <return>
 nmap <S-g><S-f> :Gitv! <return>
+nmap ,s :AirAutoWriteStart <return>
+nmap ,et2 :set expandtab<cr> :set shiftwidth=2<cr>
+nmap ,et4 :set expandtab<cr> :set shiftwidth=4<cr>
+nmap ,net :set noexpandtab<cr> :set shiftwidth=4<cr>
 " }}} ==============================================================================
 " {{{ [settings][keybind] Insert mode
 " ==================================================================================
@@ -178,15 +206,7 @@ if has('persistent_undo')
        set undodir=~/.vim/undo
        set undofile
 endif
-" au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
-" }}} ==============================================================================
-" {{{ [settings] バッファの表示設定を保存する (foldとか)
-" ==================================================================================
-" Save fold settings.
-" autocmd BufWritePost * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
-" autocmd BufRead * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | en~
-" Don't save options.
-" set viewoptions-=options
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
 " }}} ==============================================================================
 " {{{ [settings][plugin] Syntastic
 " ==================================================================================
@@ -215,31 +235,15 @@ let g:syntastic_warning_symbol=' '
 " {{{ [settings][plugin] neocomplete
 " ==================================================================================
 let g:neocomplete#enable_at_startup = 1
-" function InsertTabWrapper()
-"     if pumvisible()
-"         return "\<c-n>"
-"     endif
-"     let col = col('.') - 1
-"     if !col || getline('.')[col - 1] !~ '\k\|<\|/'
-"         return "\<tab>"
-"     elseif exists('&omnifunc') && &omnifunc == ''
-"         return "\<c-n>"
-"     else
-"         return "\<c-x>\<c-o>"
-"     endif
-" endfunction
 let g:neocomplete_snippets_dir = '~/dotfiles/.neocon-snippets'
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'javascript' : $HOME.'/dotfiles/.neocon-snippets/javascript.snip'
 \ }
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/dotfiles/.neocon-snippets/'
-"
+
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
-
-filetype plugin on
-" au BufEnter * execute ":lcd " . expand("%:p:h")
 " }}} ==============================================================================
 " {{{ [settings][plugin] neosnippet
 " ==================================================================================
@@ -290,20 +294,27 @@ let skk_use_face = 1
 " }}} ==============================================================================
 " {{{ [settings][plugin] unite.vim
 " ==================================================================================
-nmap ,ub :Unite buffer_tab <return>
+nmap ,ub :Unite buffer <return>
 nmap ,um<return> :Unite bookmark <return>
 nmap ,uma :UniteBookmarkAdd <return>
 nmap ,uf :Unite file <return>
 nmap ,uh :Unite file_mru <return>
 nmap ,ur :Unite register <return>
-nmap ,ug :Unite git_modified<return>
 nmap ,ul :Unite locate<return>
-nmap ,ut<return> :Unite todo:undone<return>
-nmap ,utt :Unite todo:tag:
-nmap ,uta :UniteTodoAddSimple -tag<return>
+nmap ,ut :!ctags -R<cr> :Unite tag<cr>
+nmap ,utl :Unite giti/log<return>
+nmap ,uts :Unite giti/status<return>
+nmap ,utr :Unite giti/remote<return>
+nmap ,utb :Unite giti/branch<return>
 nmap ,ua :Unite mark<return>
 nmap ,uc :Unite -auto-preview colorscheme<return>
 autocmd FileType git :setlocal foldlevel=99
+nmap ,ug :Unite grep:. -buffer-name=search-buffer<CR>
+if executable('pt')
+  let g:unite_source_grep_command = 'pt'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 " }}} ==============================================================================
 " {{{ [settings][macvim] Opacity level
 " ==================================================================================
@@ -321,6 +332,3 @@ if filereadable(expand('~/.vimrc_github_issues'))
 	source ~/.vimrc_github_issues
 endif
 " }}} ==============================================================================
-" {{{ [settings][plugin] Indent guides
-" ==================================================================================
-let g:indent_guides_enable_on_vim_startup = 1
