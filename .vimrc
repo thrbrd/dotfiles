@@ -43,7 +43,6 @@ NeoBundle 'jellybeans.vim'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'jshint.vim'
 NeoBundle 'git://github.com/kannokanno/previm.git'
-NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -100,15 +99,16 @@ NeoBundle 'tsukkee/unite-tag.git'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'vim-scripts/CD.vim'
 NeoBundle 'kmnk/vim-unite-giti'
+NeoBundle 'briancollins/vim-jst'
 
 NeoBundleCheck
 " }}} ==============================================================================
-" {{{ [management] Color scheme
-" ==================================================================================
+" " {{{ [management] Color scheme
+" " ==================================================================================
 colorscheme molokai
-" }}} ==============================================================================
-" {{{ [settings] Initialize
-" ==================================================================================
+" " }}} ==============================================================================
+" " {{{ [settings] Initialize
+" " ==================================================================================
 syntax on
 filetype off
 filetype plugin on
@@ -124,8 +124,9 @@ set hlsearch
 set ignorecase
 set smartcase
 set nowrapscan
-set tabstop=4
-set shiftwidth=4
+set expandtab
+set tabstop=2
+set shiftwidth=2
 set smartindent
 set autoindent
 set incsearch
@@ -142,10 +143,10 @@ set novisualbell
 set encoding=utf-8
 set fileencodings=utf-8,sjis,ucs-bom,iso-2022-jp,cp932,euc-jp,default,latin
 set list
-set listchars=eol:¬,tab:▸\ ,extends:>,precedes:<,trail:-
-" }}} ==============================================================================
-" {{{ [settings][keybind] Normal mode
-" ==================================================================================
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+" " }}} ==============================================================================
+" " {{{ [settings][keybind] Normal mode
+" " ==================================================================================
 nmap j gj
 nmap k gk
 nmap > >>
@@ -162,7 +163,7 @@ nmap <S-j> <C-w>j
 nmap <C-m> :nohl <return>
 nmap <C-o> :VimFiler <return>
 nmap <Leader>r :QuickRun <return>
-nmap ¥ \
+nmap \ \
 nmap <C-h> :SignifyToggle <return>
 nmap <S-g><S-a> :Gwrite <return>
 nmap <S-g><S-c> :Gcommit <return>
@@ -181,11 +182,11 @@ nmap ,net :set noexpandtab<cr> :set shiftwidth=4<cr>
 " }}} ==============================================================================
 " {{{ [settings][keybind] Insert mode
 " ==================================================================================
-imap ¥ \
+imap \ \
 " }}} ==============================================================================
 " {{{ [settings][keybind] Visual mode
 " ==================================================================================
-vmap ¥ \
+vmap \ \
 vmap s S
 vmap <silent> > >gv
 vmap <silent> < <gv
@@ -194,7 +195,7 @@ vmap <C-r> :RengBang<CR>
 " }}} ==============================================================================
 " {{{ [settings][keybind] Command mode
 " ==================================================================================
-cmap ¥ \
+cmap \ \
 " }}} ==============================================================================
 " {{{ [settings][keybind] Operator
 " ==================================================================================
@@ -207,30 +208,6 @@ if has('persistent_undo')
        set undofile
 endif
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
-" }}} ==============================================================================
-" {{{ [settings][plugin] Syntastic
-" ==================================================================================
-let g:syntastic_javascript_checker = 'jshint'
-let g:syntastic_mode_map = {
-      \ 'mode': 'active',
-      \ 'active_filetypes': ['ruby', 'javascript'],
-      \ 'passive_filetypes': []
-      \ }
-
-" Change error marks
-let g:syntastic_enable_signs=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol=' '
-" }}} ==============================================================================
-" {{{ [settings][plugin] Syntastic file saved validate
-" ==================================================================================
-" let g:syntastic_check_on_open=1 "ファイルを開いたにチェックする
-" let g:syntastic_check_on_save=1 "保存時にはチェック
-" let g:syntastic_auto_loc_list=1 "エラーがあったら自動でロケーションリストを開く
-" let g:syntastic_loc_list_height=6 "エラー表示ウィンドウの高さ
-" set statusline+=%#warningmsg# "エラーメッセージの書式
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
 " }}} ==============================================================================
 " {{{ [settings][plugin] neocomplete
 " ==================================================================================
@@ -308,7 +285,7 @@ nmap ,utr :Unite giti/remote<return>
 nmap ,utb :Unite giti/branch<return>
 nmap ,ua :Unite mark<return>
 nmap ,uc :Unite -auto-preview colorscheme<return>
-autocmd FileType git :setlocal foldlevel=99
+" autocmd FileType git :setlocal foldlevel=99
 nmap ,ug :Unite grep:. -buffer-name=search-buffer<CR>
 if executable('pt')
   let g:unite_source_grep_command = 'pt'
