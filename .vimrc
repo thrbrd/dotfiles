@@ -17,8 +17,8 @@ filetype plugin indent on
 
 " For looks
 NeoBundle 'tomasr/molokai'
+NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundle 'bling/vim-airline.git'
-NeoBundle 'osyo-manga/unite-airline_themes'
 NeoBundle 'ujihisa/unite-colorscheme'
 
 " Syntax
@@ -38,13 +38,12 @@ NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'epmatsw/ag.vim'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'kana/vim-smartchr.git'
+NeoBundle 'kana/vim-smartinput'
 NeoBundle 'thinca/vim-qfreplace.git'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'kana/vim-operator-replace'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'mhinz/vim-signify'
-
-" [todo] - しらべる
 NeoBundle 'tpope/vim-abolish.git'
 
 " For git
@@ -64,7 +63,7 @@ NeoBundleCheck
 " }}} ==============================================================================
 " {{{ [management] Color scheme
 " ==================================================================================
-colorscheme molokai
+colorscheme railscasts
 " }}} ==============================================================================
 " {{{ [settings] Initialize
 " ==================================================================================
@@ -103,9 +102,11 @@ set encoding=utf-8
 set fileencodings=utf-8,sjis,ucs-bom,iso-2022-jp,cp932,euc-jp,default,latin
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set t_Co=256
 " " }}} ==============================================================================
 " {{{ [settings][keybind] Normal mode
 " ==================================================================================
+nmap / :S/
 nmap j gj
 nmap k gk
 nmap > >>
@@ -116,13 +117,13 @@ nmap <C-c> :bdelete <return>
 nmap <C-m> :nohl <return>
 nmap <Leader>r :QuickRun <return>
 nmap \ \
-nmap <S-g><S-c> :Gcommit <return>
-nmap <S-g><S-s> :Gstatus <return>
-nmap <S-g><S-p><S-s> :Git push
-nmap <S-g><S-p><S-l> :Git pull
-nmap <S-g><S-c><S-o> :Git checkout
-nmap <S-g><S-m><S-g> :Git merge
-nmap <S-g><S-f> :Git fetch <return>
+nmap ,gc :Gcommit <return>
+nmap ,gs :Gstatus <return>
+nmap ,gps :Git push
+nmap ,gpl :Git pull
+nmap ,gco :Git checkout
+nmap ,gmg :Git merge
+nmap ,gf :Git fetch <return>
 " }}} ==============================================================================
 " {{{ [settings][keybind] Insert mode
 " ==================================================================================
@@ -181,7 +182,6 @@ vmap <C-e> <C-y>,
 " {{{ [settings][plugin] vim-airline
 " ==================================================================================
 let g:airline#extensions#tabline#enabled = 1
-set t_Co=256
 " }}} ==============================================================================
 " {{{ [settings][plugin] EasyMotion
 " ==================================================================================
