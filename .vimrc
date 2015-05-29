@@ -18,6 +18,7 @@ filetype plugin indent on
 " For looks
 NeoBundle 'tomasr/molokai'
 NeoBundle 'jpo/vim-railscasts-theme'
+NeoBundle 'sjl/badwolf'
 NeoBundle 'bling/vim-airline.git'
 NeoBundle 'ujihisa/unite-colorscheme'
 
@@ -63,7 +64,7 @@ NeoBundleCheck
 " }}} ==============================================================================
 " {{{ [management] Color scheme
 " ==================================================================================
-colorscheme railscasts
+colorscheme badwolf
 " }}} ==============================================================================
 " {{{ [settings] Initialize
 " ==================================================================================
@@ -178,6 +179,12 @@ endif
 nmap <C-e> <C-y>,
 imap <C-e> <C-y>,
 vmap <C-e> <C-y>,
+let g:user_emmet_settings = {
+    \    'variables': {
+    \      'lang': "ja"
+    \    },
+    \   'indentation': '  '
+    \ }
 " }}} ==============================================================================
 " {{{ [settings][plugin] vim-airline
 " ==================================================================================
