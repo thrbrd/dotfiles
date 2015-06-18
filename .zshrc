@@ -44,7 +44,7 @@ export SVN_EDITOR='vi'
 
 # キーバインド
 ## Emacsキーバインドを使う。
-bindkey -v
+bindkey -e
 
 # ディレクトリ移動
 ## ディレクトリ名だけでcdする。
@@ -442,8 +442,6 @@ fi
 # for get current dir on tmux-powerline
 PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
-# tmux -2
-
 # add bookmark with apparix
 function b() {
 	case $1 in
@@ -483,6 +481,8 @@ function do_enter() {
 }
 zle -N do_enter
 bindkey '^m' do_enter
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
 
 autoload -U edit-command-line
 zle -N edit-command-line
@@ -490,3 +490,5 @@ zle -N edit-command-line
 export NODE_PATH=/usr/local/lib/node_modules
 NPM_PATH=/usr/local/bin/npm
 export PATH=/usr/local/bin:~/bin:$NPM_PATH:$NODE_PATH:$PATH
+
+tmux -2

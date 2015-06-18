@@ -46,6 +46,7 @@ NeoBundle 'kana/vim-operator-replace'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'tpope/vim-abolish.git'
+NeoBundle 'jason0x43/vim-js-indent'
 
 " For git
 NeoBundle 'tpope/vim-fugitive'
@@ -57,8 +58,9 @@ NeoBundle 'ujihisa/unite-locate'
 
 " Other
 NeoBundle 'tyru/skk.vim.git'
-NeoBundle 'itspriddle/vim-marked'
 NeoBundle 'Shougo/vimproc'
+NeoBundle 'kakkyz81/evervim'
+NeoBundle 'itspriddle/vim-marked'
 
 NeoBundleCheck
 " }}} ==============================================================================
@@ -193,6 +195,7 @@ let g:airline#extensions#tabline#enabled = 1
 " {{{ [settings][plugin] EasyMotion
 " ==================================================================================
 nmap s <Plug>(easymotion-s2)
+vmap s <Plug>(easymotion-s2)
 let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 let g:EasyMotion_leader_key = ";"
 let g:EasyMotion_grouping = 1
@@ -229,4 +232,14 @@ if executable('ag')
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
   let g:unite_source_grep_recursive_opt = ''
 endif
+" }}} ==============================================================================
+" {{{ [settings][plugin] evervim
+" ==================================================================================
+if filereadable(expand('~/dotfiles/.vimrc.secure'))
+  source ~/.vimrc.secure
+endif
+" }}} ==============================================================================
+" {{{ [settings][plugin] marked-vim
+" ==================================================================================
+let g:marked_app = 'Marked'
 " }}} ==============================================================================
