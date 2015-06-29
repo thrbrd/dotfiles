@@ -236,7 +236,7 @@ endif
 " {{{ [settings][plugin] evervim
 " ==================================================================================
 if filereadable(expand('~/dotfiles/.vimrc.secure'))
-  source ~/.vimrc.secure
+  source ~/dotfiles/.vimrc.secure
 endif
 " }}} ==============================================================================
 " {{{ [settings][plugin] marked-vim
