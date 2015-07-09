@@ -3,16 +3,21 @@ filetype off
 " {{{ [maganement] NeoBundle
 " ==================================================================================
 if 0 | endif
+
 if has('vim_starting')
   if &compatible
     set nocompatible               " Be iMproved
   endif
+
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
+
 NeoBundleFetch 'Shougo/neobundle.vim'
+
 call neobundle#end()
+
 filetype plugin indent on
 
 " For looks
@@ -61,6 +66,11 @@ NeoBundle 'tyru/skk.vim.git'
 NeoBundle 'Shougo/vimproc'
 NeoBundle 'kakkyz81/evervim'
 NeoBundle 'itspriddle/vim-marked'
+NeoBundle 'mattn/qiita-vim.git'
+NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'haya14busa/incsearch-fuzzy.vim'
+NeoBundle 'haya14busa/incsearch-migemo.vim'
+NeoBundle 'haya14busa/incsearch-easymotion.vim'
 
 NeoBundleCheck
 " }}} ==============================================================================
@@ -109,7 +119,6 @@ set t_Co=256
 " " }}} ==============================================================================
 " {{{ [settings][keybind] Normal mode
 " ==================================================================================
-nmap / :S/
 nmap j gj
 nmap k gk
 nmap > >>
@@ -119,7 +128,6 @@ nmap <C-p> :bp <return>
 nmap <C-c> :bdelete <return>
 nmap <C-m> :nohl <return>
 nmap <Leader>r :QuickRun <return>
-nmap \ \
 nmap ,gc :Gcommit <return>
 nmap ,gs :Gstatus <return>
 nmap ,gps :Git push
@@ -128,19 +136,10 @@ nmap ,gco :Git checkout
 nmap ,gmg :Git merge
 nmap ,gf :Git fetch <return>
 " }}} ==============================================================================
-" {{{ [settings][keybind] Insert mode
-" ==================================================================================
-imap \ \
-" }}} ==============================================================================
 " {{{ [settings][keybind] Visual mode
 " ==================================================================================
-vmap \ \
 vmap > >gv
 vmap < <gv
-" }}} ==============================================================================
-" {{{ [settings][keybind] Command mode
-" ==================================================================================
-cmap \ \
 " }}} ==============================================================================
 " {{{ [settings][keybind] Operator
 " ==================================================================================
@@ -196,6 +195,7 @@ let g:airline#extensions#tabline#enabled = 1
 " ==================================================================================
 nmap s <Plug>(easymotion-s2)
 vmap s <Plug>(easymotion-s2)
+nmap <C-s> <Plug>(easymotion-s2)
 let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 let g:EasyMotion_leader_key = ";"
 let g:EasyMotion_grouping = 1
@@ -238,8 +238,28 @@ endif
 if filereadable(expand('~/dotfiles/.vimrc.secure'))
   source ~/dotfiles/.vimrc.secure
 endif
+
+nmap ,ev<return> :EvervimSearchByQuery ''<left>
+nmap ,evc :EvervimCreateNote<return>
 " }}} ==============================================================================
 " {{{ [settings][plugin] marked-vim
 " ==================================================================================
 let g:marked_app = 'Marked'
+" }}} ==============================================================================
+" {{{ [settings][plugin] incsearch.vim
+" ==================================================================================
+map <silent><expr> / incsearch#go(<SID>config_customincsearch())
+map z/ <Plug>(incsearch-fuzzy-/)
+
+function! s:config_customincsearch() abort
+  return {
+  \  'converters': [
+  \    incsearch#config#migemo#converter()
+  \  ],
+  \  'modules': [
+  \    incsearch#config#easymotion#module()
+  \  ],
+  \  'keymap': {"\<CR>": '<Over>(easymotion)'}
+  \}
+endfunction
 " }}} ==============================================================================
