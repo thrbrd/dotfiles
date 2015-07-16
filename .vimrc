@@ -16,8 +16,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-call neobundle#end()
-
 filetype plugin indent on
 
 " For looks
@@ -26,6 +24,7 @@ NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundle 'sjl/badwolf'
 NeoBundle 'bling/vim-airline.git'
 NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'altercation/vim-colors-solarized.git'
 
 " Syntax
 NeoBundle 'othree/html5.vim'
@@ -52,6 +51,12 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'tpope/vim-abolish.git'
 NeoBundle 'jason0x43/vim-js-indent'
+NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'haya14busa/incsearch-fuzzy.vim'
+NeoBundle 'haya14busa/incsearch-migemo.vim'
+NeoBundle 'haya14busa/incsearch-easymotion.vim'
+NeoBundle 'soramugi/auto-ctags.vim'
+NeoBundle 'tsukkee/unite-tag.git'
 
 " For git
 NeoBundle 'tpope/vim-fugitive'
@@ -60,6 +65,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'ujihisa/unite-locate'
+NeoBundle 'kmnk/vim-unite-giti'
 
 " Other
 NeoBundle 'tyru/skk.vim.git'
@@ -67,16 +73,16 @@ NeoBundle 'Shougo/vimproc'
 NeoBundle 'kakkyz81/evervim'
 NeoBundle 'itspriddle/vim-marked'
 NeoBundle 'mattn/qiita-vim.git'
-NeoBundle 'haya14busa/incsearch.vim'
-NeoBundle 'haya14busa/incsearch-fuzzy.vim'
-NeoBundle 'haya14busa/incsearch-migemo.vim'
-NeoBundle 'haya14busa/incsearch-easymotion.vim'
+NeoBundle 'airblade/vim-rooter'
 
 NeoBundleCheck
+
+call neobundle#end()
 " }}} ==============================================================================
 " {{{ [management] Color scheme
 " ==================================================================================
-colorscheme badwolf
+" colorscheme badwolf
+colorscheme slate
 " }}} ==============================================================================
 " {{{ [settings] Initialize
 " ==================================================================================
@@ -224,7 +230,10 @@ nmap ,uh :Unite file_mru <return>
 nmap ,ul :Unite locate<return>
 nmap ,uf :UniteWithBufferDir -buffer-name=files file file/new <return>
 nmap ,uc :Unite -auto-preview colorscheme<return>
-nmap ,ug :Unite grep:. -buffer-name=search-buffer<CR>
+nmap ,us :Unite grep:. -buffer-name=search-buffer<CR>
+nmap ,ug<return> :Unite giti<CR>
+nmap ,ugs :Unite giti/status<CR>
+nmap ,ut :Unite tag<CR>
 
 " unite grep に ag(The Silver Searcher) を使う
 if executable('ag')
@@ -262,4 +271,14 @@ function! s:config_customincsearch() abort
   \  'keymap': {"\<CR>": '<Over>(easymotion)'}
   \}
 endfunction
+" }}} ==============================================================================
+" {{{ [settings][plugin] auto-ctags.vim
+" ==================================================================================
+let g:auto_ctags = 1
+let g:auto_ctags_directory_list = ['.git']
+" }}} ==============================================================================
+" {{{ [settings][plugin] vim-rooter
+" ==================================================================================
+let g:rooter_patterns = ['.git/']
+map <silent> <unique> <C-t> <Plug>RooterChangeToRootDirectory
 " }}} ==============================================================================
