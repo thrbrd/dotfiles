@@ -491,4 +491,50 @@ export NODE_PATH=/usr/local/lib/node_modules
 NPM_PATH=/usr/local/bin/npm
 export PATH=/usr/local/bin:~/bin:$NPM_PATH:$NODE_PATH:$PATH
 
+autoload -Uz is-at-least
+if is-at-least 4.3.11
+then
+  autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+  add-zsh-hook chpwd chpwd_recent_dirs
+  zstyle ':chpwd:*' recent-dirs-max 1000
+  zstyle ':chpwd:*' recent-dirs-default yes
+  zstyle ':completion:*' recent-dirs-insert both
+fi
+
+# setting for peco
+function peco-select-history() {
+  local tac
+  if which tac > /dev/null; then
+      tac="tac"
+  else
+      tac="tail -r"
+  fi
+  if [ -n "$LBUFFER" ]; then
+    BUFFER=$(history -n 1 | \
+        eval $tac | \
+        peco --query "$LBUFFER")
+  else
+    BUFFER=$(history -n 1 | \
+        eval $tac | \
+        peco)
+  fi
+  CURSOR=$#BUFFER
+  zle clear-screen
+}
+zle -N peco-select-history
+function peco-cdr () {
+    local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-cdr
+bindkey '^r' peco-select-history
+bindkey '^@' peco-cdr
+
 tmux -2
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
