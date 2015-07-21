@@ -176,6 +176,7 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 " ==================================================================================
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+nmap <Space>nes :NeoSnippetEdit<return>
 
 if has('conceal')
   set conceallevel=2 concealcursor=i
@@ -257,7 +258,7 @@ let g:marked_app = 'Marked'
 " }}} ==============================================================================
 " {{{ [settings][plugin] incsearch.vim
 " ==================================================================================
-map <silent><expr> / incsearch#go(<SID>config_customincsearch())
+map / <Plug>(incsearch-forward)
 map z/ <Plug>(incsearch-fuzzy-/)
 
 function! s:config_customincsearch() abort
