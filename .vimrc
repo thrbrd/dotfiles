@@ -30,6 +30,8 @@ NeoBundle 'altercation/vim-colors-solarized.git'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'briancollins/vim-jst.git'
+NeoBundle 'nono/vim-handlebars.git'
+NeoBundle 'derekwyatt/vim-scala.git'
 
 " For coding
 NeoBundle 'matchit.zip'
@@ -57,6 +59,7 @@ NeoBundle 'haya14busa/incsearch-migemo.vim'
 NeoBundle 'haya14busa/incsearch-easymotion.vim'
 NeoBundle 'soramugi/auto-ctags.vim'
 NeoBundle 'tsukkee/unite-tag.git'
+NeoBundle 'AndrewRadev/switch.vim'
 
 " For git
 NeoBundle 'tpope/vim-fugitive'
@@ -67,6 +70,11 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'ujihisa/unite-locate'
 NeoBundle 'kmnk/vim-unite-giti'
 
+" For translate
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'mfumi/ref-dicts-en'
+NeoBundle 'tyru/vim-altercmd'
+
 " Other
 NeoBundle 'tyru/skk.vim.git'
 NeoBundle 'Shougo/vimproc'
@@ -74,18 +82,16 @@ NeoBundle 'kakkyz81/evervim'
 NeoBundle 'itspriddle/vim-marked'
 NeoBundle 'mattn/qiita-vim.git'
 NeoBundle 'airblade/vim-rooter'
+NeoBundle 'suan/vim-instant-markdown'
+NeoBundle 'mrtazz/simplenote.vim'
 
 NeoBundleCheck
 
 call neobundle#end()
-" }}} ==============================================================================
-" {{{ [management] Color scheme
-" ==================================================================================
-" colorscheme badwolf
-colorscheme slate
-" }}} ==============================================================================
+" " }}} ==============================================================================
 " {{{ [settings] Initialize
 " ==================================================================================
+colorscheme solarized
 syntax on
 filetype off
 filetype plugin on
@@ -95,6 +101,7 @@ set guioptions=
 set visualbell t_vb=
 set clipboard=unnamed
 set virtualedit=block
+set autoread
 set nobackup
 set noswapfile
 set hlsearch
@@ -249,6 +256,8 @@ if filereadable(expand('~/dotfiles/.vimrc.secure'))
   source ~/dotfiles/.vimrc.secure
 endif
 
+let g:evervim_usemarkdown = 0
+
 nmap ,ev<return> :EvervimSearchByQuery ''<left>
 nmap ,evc :EvervimCreateNote<return>
 " }}} ==============================================================================
@@ -282,4 +291,44 @@ let g:auto_ctags_directory_list = ['.git']
 " ==================================================================================
 let g:rooter_patterns = ['.git/']
 map <silent> <unique> <C-t> <Plug>RooterChangeToRootDirectory
+" }}} ==============================================================================
+" {{{ [settings][plugin] switch.vim
+" ==================================================================================
+nnoremap - :Switch<cr>
+" }}} ==============================================================================
+" {{{ [settings][plugin] vim-ref
+" ==================================================================================
+" vim-ref のバッファを q で閉じられるようにする
+autocmd FileType ref-* nnoremap <buffer> <silent> q :<C-u>close<CR>
+
+" 辞書定義
+let g:ref_source_webdict_sites = {
+\   'je': {
+\     'url': 'http://dictionary.infoseek.ne.jp/jeword/%s',
+\   },
+\   'ej': {
+\     'url': 'http://dictionary.infoseek.ne.jp/ejword/%s',
+\   },
+\   'w': {
+\     'url': 'http://ja.wikipedia.org/wiki/%s',
+\   },
+\ }
+
+" デフォルトサイト
+let g:ref_source_webdict_sites.default = 'ej'
+
+" 出力に対するフィルタ
+" 最初の数行を削除
+function! g:ref_source_webdict_sites.je.filter(output)
+  return join(split(a:output, "\n")[15 :], "\n")
+endfunction
+
+function! g:ref_source_webdict_sites.ej.filter(output)
+  return join(split(a:output, "\n")[15 :], "\n")
+endfunction
+
+call altercmd#load()
+nmap ,rej :Ref webdict ej 
+nmap ,rje :Ref webdict je 
+nmap ,rw :Ref webdict w 
 " }}} ==============================================================================
