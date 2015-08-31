@@ -1,7 +1,7 @@
 #=============================
 # source auto-fu.zsh
 #=============================
-# source ~/.zsh/auto-fu.zsh
+# source ~/.zsh/auto-fu.zsh/auto-fu.zsh
 #     function zle-line-init () {
 #         auto-fu-init
 #     }
@@ -11,7 +11,13 @@
 # -*- sh -*-
 
 # syntax highlight
-# source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# z
+source "$HOME/z/z.sh"
+function precmd () {
+   z --add "$(pwd -P)"
+}
 
 # git alias
 alias gpl='git pull'
