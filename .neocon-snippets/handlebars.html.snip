@@ -1,0 +1,25 @@
+snippet if
+  {{#if ${1}}}
+    ${2}
+  {{/if}}${3}
+
+snippet ifelse
+  {{#if ${1}}}
+    ${2}
+  {{else}}
+    ${3}
+  {{/if}}${4}
+
+snippet else
+  {{else}}
+
+snippet elseif
+  {{#if ${1}}}
+    ${3}
+  {{else}}
+    {{#if ${2}}}
+      ${4}
+    {{else}}
+      ${5}
+    {{/if}}
+  {{/if}}${6}

@@ -11,7 +11,7 @@ alias sto
 
 snippet require
 alias re
-  require('${1}');
+  require('${1}');${2}
 
 snippet setinterval
 alias siv
@@ -128,3 +128,6 @@ snippet gulp
   gulp.task('${1}', function () {
     ${2}
   });
+
+snippet this
+  var _this = this;
