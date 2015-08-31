@@ -4,3 +4,39 @@ alias java
 
 snippet id
 	id="${0:test}"
+
+snippet fixme
+alias fix
+  <!-- FIXME(thrbrd) ${1} -->
+
+snippet header
+alias hd
+  <header>
+    ${1}
+  </header>
+
+snippet footer
+alias fo
+  <footer>
+    ${1}
+  </footer>
+
+snippet nav
+alias nv
+  <nav>
+    <ul>
+      <li><a href="${1:#}">${2:link1}</a></li>
+    </ul>
+  </nav>
+
+snippet copyright
+alias cp
+  <p><small>Copyright 2015 ${1:thrbrd} All Rights Reserved.</small></p>
+
+snippet logo
+alias lg
+  <h1><a href="/">${1:TITLE}</a></h1>
+
+snippet clearfix
+alias cf
+  class="cf"

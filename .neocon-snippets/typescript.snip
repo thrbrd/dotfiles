@@ -1,121 +1,47 @@
 snippet nonamefunction
 alias nn
-	function () {
-	}${1}
+  (${1}) => {
+    ${2}
+  }
 
-snippet settimeout
-alias sto
-	setTimeout(function () {
-		${2}
-	}, ${1});
-
-snippet setinterval
-alias siv
-	setInterval(function () {
-		${2}
-	}, ${1});
-
-snippet alerttest
-alias alt
-	alert(${1:'test'});
-
-snippet consoletest
+snippet consolelog:test
 alias cot
-	console.log(${1:'test'});
+  console.log(${1:'test'});
 
-snippet docready
-alias jq
-	$(function () {
-		${1}
-	});
+snippet alert:test
+alias alt
+  alert(${1:'test'});
 
-snippet prototype
-alias pt
-	${1:NS}.${2:Fn} = function () {
-		this.init();
-	};
-	${3:NS}.${4:Fn}.prototype = {
-		init: function () {
-			this.bindEvents();
-		},
-		bindEvents: function () {
-			var _self = this;
-		}
-	};
+snippet class
+alias cls
+  class ${1:ClassName} {
+    constructor () {
+    }
+  }
 
-snippet jquerypluginandwrapper
-alias jqpw
-	;(function ($) {
-		var ${1:Fn} = function () {
-			this.init();
-		};
-		${2:Fn}.prototype = {
-			init: function () {
-				this.bindEvents();
-			},
-			bindEvents: function () {
-			}
-		};
-		$.fn.${3:fn} = function () {
-            var options = $.extend({
-            }, settings);
+snippet bindevents
+alias be
+  private bindEvents () : void {
+  }
 
-			return this.each(function () {
-				new ${4:Fn}($(this));
-			});
-		};
-	})(jQuery);
+snippet lodash:map
+alias map
+  _.map(${1:items}, (${2:item}) => {
+    ${3}
+  })
 
-snippet jqueryplugin
-alias jqp
-	$.fn.${1:name} = function () {
-        var options = $.extend({
-        }, settings);
+snippet lodash:each
+alias each
+  _.each(${1:items}, (${2:item}) => {
+    ${3}
+  })
 
-		return this.each(function () {
-			new ${2:Name}($(this));
-		});
-	};
+snippet let
+alias l
+  let ${1:name} = ${2:value};${3}
 
-snippet jqueryselector
-alias jqs
-	$('${1:queryString}')${2}
-
-snippet proxy
-alias pr
-	$.proxy(function () {
-		${1}
-	}, this);
-
-snippet settimeoutproxy 
-alias sttp
-	setTimeout($.proxy(function () {
-		${2}
-	}, this), ${1:0});
-
-snippet onclick
-alias onc
-	${1}.on('click', function () {
-		${2}
-	});
-
-snippet event
-alias ev
-	${1}.on('${2}', function () {
-		${3}
-	});
-
-snippet eventproxy
-alias evp
-	${1}.on('${2}', $.proxy(function () {
-		${3}
-	}, this));
-
-snippet jquerycss
-alias css
-	.css({
-		${1}
-	});
-
-snippet self
-    var _self = this;
+snippet for
+alias f
+  for (let i = 0; i < ${1:items}.length; i++) {
+    ${2}
+  }
