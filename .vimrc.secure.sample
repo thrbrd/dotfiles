@@ -1,3 +1,0 @@
-let g:evervim_devtoken='ここで取って->https://www.evernote.com/api/DeveloperToken.action'
-let g:SimplenoteUsername = ''
-let g:SimplenotePassword = ''

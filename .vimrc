@@ -25,6 +25,8 @@ NeoBundle 'sjl/badwolf'
 NeoBundle 'bling/vim-airline.git'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'altercation/vim-colors-solarized.git'
+NeoBundle 'NLKNguyen/papercolor-theme'
+NeoBundle 'orthecreedence/void.vim'
 
 " Syntax
 NeoBundle 'othree/html5.vim'
@@ -44,7 +46,6 @@ NeoBundle 'tComment'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'epmatsw/ag.vim'
 NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'kana/vim-smartchr.git'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'thinca/vim-qfreplace.git'
 NeoBundle 'kana/vim-operator-user'
@@ -60,6 +61,7 @@ NeoBundle 'haya14busa/incsearch-easymotion.vim'
 NeoBundle 'soramugi/auto-ctags.vim'
 NeoBundle 'tsukkee/unite-tag.git'
 NeoBundle 'AndrewRadev/switch.vim'
+NeoBundle 'majutsushi/tagbar'
 
 " For git
 NeoBundle 'tpope/vim-fugitive'
@@ -68,7 +70,6 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'ujihisa/unite-locate'
-NeoBundle 'kmnk/vim-unite-giti'
 
 " For translate
 NeoBundle 'thinca/vim-ref'
@@ -84,6 +85,7 @@ NeoBundle 'mattn/qiita-vim.git'
 NeoBundle 'airblade/vim-rooter'
 NeoBundle 'suan/vim-instant-markdown'
 NeoBundle 'mrtazz/simplenote.vim'
+NeoBundle 'tpope/vim-obsession'
 
 NeoBundleCheck
 
@@ -239,9 +241,8 @@ nmap ,ul :Unite locate<return>
 nmap ,uf :UniteWithBufferDir -buffer-name=files file file/new <return>
 nmap ,uc :Unite -auto-preview colorscheme<return>
 nmap ,us :Unite grep:. -buffer-name=search-buffer<CR>
-nmap ,ug<return> :Unite giti<CR>
-nmap ,ugs :Unite giti/status<CR>
 nmap ,ut :Unite tag<CR>
+nmap ,ur :UniteResume<return>
 
 " unite grep に ag(The Silver Searcher) を使う
 if executable('ag')
@@ -284,8 +285,13 @@ endfunction
 " }}} ==============================================================================
 " {{{ [settings][plugin] auto-ctags.vim
 " ==================================================================================
-let g:auto_ctags = 1
-let g:auto_ctags_directory_list = ['.git']
+" let g:auto_ctags = 1
+let g:auto_ctags_directory_list = ['ctags']
+" let g:auto_ctags_filetype_mode = 1
+" let g:auto_ctags_tags_args = '--tag-relative --recursive --sort=yes'
+" set tags+=ctags/tags
+set tags+=ctags/javascript.tags
+set tags+=ctags/typescript.tags
 " }}} ==============================================================================
 " {{{ [settings][plugin] vim-rooter
 " ==================================================================================

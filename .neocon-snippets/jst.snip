@@ -23,3 +23,33 @@ alias td
 snippet note
 alias nt
   <%#NOTE(thrbrd) ${1}%>
+
+snippet header
+alias hd
+  <header>${1}</header>
+
+snippet logo
+alias lg
+  <h1><a href="/">${1:TITLE}</a></h1>
+
+snippet clearfix
+alias cf
+  class="cf"
+
+snippet copyright
+alias cp
+  <p><small>Copyright 2015 ${1:thrbrd} All Rights Reserved.</small></p>
+
+snippet nav
+alias nv
+  <nav>
+    <ul>
+      <li><a href="${1:#}">${2:link1}</a></li>
+    </ul>
+  </nav>
+
+snippet footer
+alias fo
+  <footer>
+    ${1}
+  </footer>
