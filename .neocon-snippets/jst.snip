@@ -1,7 +1,3 @@
-snippet viewport
-alias vp
-  <meta name="viewport" content="initial-scale: 1.0">
-
 snippet extend
 alias ex
   <% function ${1: test} (buf) { %>
@@ -24,21 +20,36 @@ snippet note
 alias nt
   <%#NOTE(thrbrd) ${1}%>
 
+snippet fixme
+alias fix
+  <%#FIXME(thrbrd) ${1}%>
+
+snippet javascriptvoid
+alias java
+  href="javascript: void(0);"
+
+snippet id
+	id="${0:test}"
+
+snippet fixme
+alias fix
+  <!-- FIXME(thrbrd) ${1} -->
+
+snippet todo
+alias td
+  <!-- TODO(thrbrd) ${1} -->
+
 snippet header
 alias hd
-  <header>${1}</header>
+  <header>
+    ${1}
+  </header>
 
-snippet logo
-alias lg
-  <h1><a href="/">${1:TITLE}</a></h1>
-
-snippet clearfix
-alias cf
-  class="cf"
-
-snippet copyright
-alias cp
-  <p><small>Copyright 2015 ${1:thrbrd} All Rights Reserved.</small></p>
+snippet footer
+alias fo
+  <footer>
+    ${1}
+  </footer>
 
 snippet nav
 alias nv
@@ -48,8 +59,59 @@ alias nv
     </ul>
   </nav>
 
-snippet footer
-alias fo
-  <footer>
-    ${1}
-  </footer>
+snippet copyright
+alias cp
+  <p><small>Copyright 2015 ${1:thrbrd} All Rights Reserved.</small></p>
+
+snippet logo
+alias lg
+  <h1><a href="/">${1:TITLE}</a></h1>
+
+snippet clearfix
+alias cf
+  class="cf"
+
+snippet class
+alias cls
+  class="${1}"
+
+snippet viewport
+alias vp
+  <meta name="viewport" content="initial-scale=1.0">
+
+snippet headerandnav
+alias hdnav
+  <header${1: class=""}>
+    <h1>${2:Title}</h1>
+    <nav>
+      <ul>
+        <li><a href="#">link1</a></li>
+        <li><a href="#">link2</a></li>
+        <li><a href="#">link3</a></li>
+        <li><a href="#">link4</a></li>
+        <li><a href="#">link5</a></li>
+      </ul>
+    </nav>
+  </header>
+
+snippet maininsection
+alias mnsec
+  <main>
+    <section>
+      <h2></h2>
+    </section>
+  </main>
+
+snippet html
+  <!DOCTYPE html>
+  <html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <script src="/scripts.js"></script>
+  </body>
+  </html>

@@ -19,6 +19,7 @@ alias p='open -a Preview'
 alias aai='open -a Adobe\ Illustrator'
 alias aps='open -a Adobe\ Photoshop\ CC'
 alias ap='apparix'
+alias vi='vim'
 
 # alias
 alias nf='nodefront serve -cl'
@@ -520,10 +521,12 @@ function peco-cdr () {
 }
 zle -N peco-cdr
 bindkey '^r' peco-select-history
-bindkey '^@' peco-cdr
+bindkey '^f' peco-cdr
 
 tmux -2
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export PYTHONPATH="/usr/local/lib/python2.7"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

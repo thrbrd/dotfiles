@@ -121,3 +121,5 @@ tmux -2
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

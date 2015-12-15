@@ -1,0 +1,75 @@
+" Basic
+colo PaperColor
+syntax on
+filetype off
+filetype plugin on
+set guifont=Ricty_Diminished:h10
+set backspace=indent,eol,start
+set background=dark
+set foldmethod=marker
+set guioptions=
+set hidden
+set visualbell t_vb=
+set clipboard=unnamed
+set virtualedit=block
+set autoread
+set nobackup
+set noswapfile
+set hlsearch
+set ignorecase
+set smartcase
+set nowrapscan
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set smartindent
+set autoindent
+set incsearch
+set number
+set whichwrap=b,s,h,l,<,>,[,]
+set wildmenu
+set ruler
+set laststatus=2
+set lsp=2
+set mouse=a
+set cmdheight=2
+set encoding=utf-8
+set fileencodings=utf-8,sjis,ucs-bom,iso-2022-jp,cp932,euc-jp,default,latin
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set t_Co=256
+
+" gf
+set includeexpr=substitute(v:fname,'$','.ts','')
+
+" 無限undoと編集位置の自動復帰 http://blog.papix.net/entry/2012/12/14/04~
+if has('persistent_undo')
+  set undodir=~/.vim/undo
+  set undofile
+endif
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+
+" Keymaps all
+map R <Plug>(operator-replace)
+
+" Keymaps nmap
+nmap j gj
+nmap k gk
+nmap > >>
+nmap < <<
+nmap <C-k> :bn <return>
+nmap <C-j> :bp <return>
+nmap <C-c> :bdelete <return>
+nmap <C-m> :nohl <return>
+nmap <Leader>r :QuickRun <return>
+nmap ,gc :Gcommit <return>
+nmap ,gs :Gstatus <return>
+nmap ,gps :Git push
+nmap ,gpl :Git pull
+nmap ,gco :Git checkout
+nmap ,gmg :Git merge
+nmap ,gf :Git fetch <return>
+
+" Keymaps vmap
+vmap > >gv
+vmap < <gv
