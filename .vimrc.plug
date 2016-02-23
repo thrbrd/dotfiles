@@ -72,4 +72,5 @@ call plug#begin('~/.vim/plugged')
   Plug 'Shougo/vimproc'
   Plug 'airblade/vim-rooter'
   Plug 'suan/vim-instant-markdown'
+  Plug 'mattn/webapi-vim'
 call plug#end()

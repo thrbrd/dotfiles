@@ -57,8 +57,8 @@ nmap j gj
 nmap k gk
 nmap > >>
 nmap < <<
-nmap <C-k> :bn <return>
-nmap <C-j> :bp <return>
+nmap <S-k> :bn <return>
+nmap <S-j> :bp <return>
 nmap <C-c> :bdelete <return>
 nmap <C-m> :nohl <return>
 nmap <Leader>r :QuickRun <return>
