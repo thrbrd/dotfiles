@@ -1,0 +1,9 @@
+*~
+*.swp
+*.bak
+*.old
+node_modules
+bower_components
+.git
+.svn
+vendar

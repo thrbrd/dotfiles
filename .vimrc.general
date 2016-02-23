@@ -69,6 +69,7 @@ nmap ,gpl :Git pull
 nmap ,gco :Git checkout
 nmap ,gmg :Git merge
 nmap ,gf :Git fetch <return>
+nmap \s :source ~/.vimrc <return>
 
 " Keymaps vmap
 vmap > >gv
