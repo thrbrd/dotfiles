@@ -78,9 +78,9 @@ if executable('ag')
 endif
 
 " incsearch
-" map / <Plug>(incsearch-forward)
+map / <Plug>(incsearch-forward)
 map z/ <Plug>(incsearch-fuzzy-/)
-map / <Plug>(incsearch-migemo-/)
+map m/ <Plug>(incsearch-migemo-/)
 
 function! s:config_customincsearch() abort
   return {
