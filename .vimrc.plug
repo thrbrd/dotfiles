@@ -28,6 +28,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'nono/vim-handlebars'
   Plug 'derekwyatt/vim-scala'
   Plug 'jason0x43/vim-js-indent'
+  Plug 'digitaltoad/vim-pug'
 
   " Operators
   Plug 'kana/vim-operator-user'
