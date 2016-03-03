@@ -4,6 +4,7 @@ zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-completions"
 zplug "plugins/git", from:oh-my-zsh
 zplug "mollifier/anyframe"
+zplug "zsh-users/zsh-autosuggestions"
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -21,6 +22,7 @@ alias gpor="git push origin `git rev-parse --abbrev-ref HEAD`"
 alias chrome="open -a Google\ Chrome"
 alias finder="open -a Finder"
 alias atom="open -a Atom"
+alias rmds='find ./ -name ".DS_Store" -print -exec rm {} ";"'
 
 bindkey '^r^h' anyframe-widget-execute-history
 bindkey '^r^b' anyframe-widget-checkout-git-branch
@@ -58,3 +60,13 @@ function vcs_echo {
 PROMPT='
 %F{yellow}[%~]%f `vcs_echo`
 %(?.$.%F{red}$%f) '
+
+# for completion
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format '%F{YELLOW}%d'$DEFAULT
+zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d'$DEFAULT
+zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'$DEFAULT
+zstyle ':completion:*' group-name ''
